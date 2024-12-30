@@ -8,11 +8,11 @@ export default function NavBar() {
                 <div className="flex justify-between h-16">
                     <div className="flex-shrink-0 flex items-center">
                         <Link to="/" className="text-blue-600 text-2xl font-bold">
-                            Fitness Hustle
+                            AI Powered- Nutriva
                         </Link>
                     </div>
                     <div className="flex items-center">
-                        <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover: bg-blue-700 transition-colors">
+                        <button className="bg-blue-500 text-white px-6 py-2 rounded-full">
                             Sign Up
                         </button>
                     </div>

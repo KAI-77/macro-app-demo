@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const fsPromises = fs.promises;
 const path = require("path");
+const cors = require("cors");
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors());
 // Configure multer to save files to the uploads folder
 const upload = multer({ dest: "uploads/" });
 app.use(express.json({ limit: "25mb" }));
@@ -24,6 +26,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
+    console.log(req.file);
     const imagePath = req.file.path;
     const imageData = await fsPromises.readFile(imagePath, {
       encoding: "base64",
