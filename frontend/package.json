@@ -9,10 +9,13 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  
   "dependencies": {
+    "@chakra-ui/react": "^2.10.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
+    "framer-motion": "^11.15.0",
     "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

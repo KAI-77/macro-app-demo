@@ -1,24 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Container, Box, Flex, Text, Button } from "@chakra-ui/react";
 
 export default function NavBar() {
     return (
-        <nav className="bg-white shadow-sm">
-            <div className="max-w-7xl mx-auto sm:px-6 lg: px-8">
-                <div className="flex justify-between h-16">
-                    <div className="flex-shrink-0 flex items-center">
-                        <Link to="/" className="text-blue-600 text-2xl font-bold">
-                            AI Powered- Nutriva
-                        </Link>
-                    </div>
-                    <div className="flex items-center">
-                        <button className="bg-blue-500 text-white px-6 py-2 rounded-full">
-                            Sign Up
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
+       <Box as="nav" bg="white" boxShadow="sm">
+        <Container maxW= "7xl" px= {{base: 4, sm: 6, lg: 8}}>
+            <Flex justify= "space-between" h="16" align="center">
+                <Flex align="center">
+                    <Link to='/'>
+                    <Text fontSize= "2xl"
+                    fontWeight="bold"
+                    color="blue.500"
+                    >
+                        AI Powered- Nutriva
+                    </Text>
+                    </Link>
+                </Flex>
+                <Flex align="center">
+                    <Button colorScheme="blue"
+                    size="md"
+                    borderRadius="full">
+                        Sign Up
+                    </Button>
+                </Flex>
+            </Flex>
+            <Flex>
+                
+            </Flex>
+        </Container>
+
+       </Box>
     )
 
 
