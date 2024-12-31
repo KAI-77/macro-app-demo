@@ -9,7 +9,7 @@ export default function Footer() {
         
       >
          <Center>   
-          <Text>© 2024 Nutriva. All rights reserved</Text>
+          <Text>© 2024 VitaScan. All rights reserved</Text>
           </Center>
          
       

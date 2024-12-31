@@ -48,11 +48,11 @@ export default function ImageUpload() {
                <Card bg="gray.800" borderColor="gray.700">
                    <CardHeader>
                        <VStack spacing={2} align="stretch">
-                           <Heading size="lg" color="white">AI Powered- Nutriva</Heading>
+                           <Heading size="lg" color="white">AI Powered- VitaScan</Heading>
                            <Text color="gray.400">Nutrition Tracking App</Text>
                            
                            <Heading size="md" mt={4} color="white">
-                               Reach your health goals with Nutriva
+                               Reach your health goals with VitaScan
                            </Heading>
                            <Text color="gray.400">
                                Your personal nutrition tracking app powered by AI

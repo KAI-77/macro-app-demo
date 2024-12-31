@@ -13,7 +13,7 @@ export default function NavBar() {
                     fontWeight="bold"
                     color="blue.500"
                     >
-                        AI Powered- Nutriva
+                        AI Powered- VitaScan
                     </Text>
                     </Link>
                 </Flex>
