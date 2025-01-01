@@ -75,7 +75,7 @@ export default function NavBar() {
                                 <Text
                                     fontSize="xl"
                                     fontWeight="bold"
-                                    color="blue.500"
+                                    color="gray.100"
                                 >
                                     AI Powered- VitaScan
                                 </Text>

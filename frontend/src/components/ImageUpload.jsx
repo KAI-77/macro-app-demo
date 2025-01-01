@@ -119,17 +119,17 @@ export default function ImageUpload() {
     };
 
     return (
-        <Box minH="100vh" bg="gray.900" py={8}>
-            <Container maxW="md">
-                <Card bg="gray.800" borderColor="gray.700">
+        <Box minH="100vh" bg="#09090B" py={8}>
+            <Container maxW="4xl">
+                <Card bg="#18181B" borderColor="27272A">
                     <CardHeader>
                         <VStack spacing={2} align="stretch">
                            
                             
-                            <Heading size="md" mt={4} color="white">
+                            <Heading size="md" mt={4} color="FAFAFA">
                                 Reach your health goals with VitaScan
                             </Heading>
-                            <Text color="gray.400">
+                            <Text color="A1A1AA">
                                 Your personal nutrition tracking app powered by AI
                             </Text>
                         </VStack>
@@ -225,13 +225,15 @@ export default function ImageUpload() {
 
                             {analysis && (
                                 <Box mt={6}>
-                                    <Heading size="sm" mb={2} color="white">Analysis Results:</Heading>
+                                    <Heading size="sm" mb={2} color="FAFAFA">Analysis Results:</Heading>
                                     <Box 
-                                        bg="gray.900" 
+                                        bg="#09090B" 
                                         p={4} 
                                         borderRadius="md"
                                         whiteSpace="pre-wrap"
-                                        color="gray.300"
+                                        color="A1A1AA"
+                                        borderColor="#27272A"
+                                        borderWidth="1px"
                                     >
                                         {analysis.results}
                                     </Box>
