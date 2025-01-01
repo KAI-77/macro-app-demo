@@ -240,8 +240,12 @@ export default function ImageUpload() {
                             >
                                 Analyze Image
                             </Button>
-                            <Text fontSize="sm" mt={2}> By uploading an image, you agree to our 
-                                <Link as={RouterLink} to="/privacy">Privacy Policy</Link>.</Text>
+                            <Text fontSize="sm" mt={2}> By uploading an image, you agree to our{' '}
+                                <Link as={RouterLink} to="/privacy" color="blue.500">
+                                Privacy Policy
+                                </Link>
+                                .
+                                </Text>
 
 
 
