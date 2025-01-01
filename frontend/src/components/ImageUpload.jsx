@@ -136,7 +136,7 @@ export default function ImageUpload() {
 
 
     return (
-        <Box minH="100vh" bg={bgColor} py={8}>
+        <Box bg={bgColor} py={8}>
             <Container maxW="4xl">
                 <Card bg={cardBg} borderColor={borderColor}>
                     <CardHeader>

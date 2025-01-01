@@ -14,13 +14,15 @@ function App() {
   return (
    
       <Router>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
+          <main style={{ flex: 1 }}>
           <Routes>
           <Route path="/" element={<ImageUpload />} />
           <Route path="/info" element={<InfoPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
+          </main>
           <Footer />
         </div>
       </Router>

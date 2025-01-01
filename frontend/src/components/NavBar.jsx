@@ -54,20 +54,20 @@ export default function NavBar() {
     // const bg = useColorModeValue("white", "gray.800");
     // const color = useColorModeValue("gray.600", "white");
     // const borderColor = useColorModeValue("gray.200", "gray.700");
-    const bgColor = useColorModeValue("gray.100", "09090B");
+    const bgColor = useColorModeValue("gray.100", "gray.900");
     const textColor = useColorModeValue("gray.800", "FAFAFA");
     const borderColor = useColorModeValue("gray.200", "#27272A");
 
     return (
         <Box 
             as="nav" 
-            bg={bgColor} 
+           
             boxShadow="sm"
             position="sticky"
             top="0"
             zIndex="sticky"
             borderBottom="1px"
-            borderColor={borderColor}
+            
         >
             <Container maxW="7xl" px={{ base: 4, sm: 6, lg: 8 }}>
                 <Flex justify="space-between" h="16" align="center">

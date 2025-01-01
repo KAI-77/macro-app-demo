@@ -2,14 +2,21 @@ import React from "react";
 import { Box,  Center,  Text, useColorModeValue } from "@chakra-ui/react";
 export default function Footer() {
 
+
+    const bgColor = useColorModeValue("gray.100", "09090B");
+        const textColor = useColorModeValue("gray.900", "FAFAFA");
+     
+
     return (
         <Box
-        bg={useColorModeValue("gray.50", "gray.900")}
-        color={useColorModeValue("gray.700", "gray.200")}
+        bg={bgColor}
+        color={textColor}
+        py={4}
+        mt="auto"
         
       >
          <Center>   
-          <Text>© 2024 VitaScan. All rights reserved</Text>
+          <Text fontSize="sm" fontStyle="italic">© 2025 VitaScan. All rights reserved.</Text>
           </Center>
          
       
