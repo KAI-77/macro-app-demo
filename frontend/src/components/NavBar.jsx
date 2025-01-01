@@ -20,7 +20,7 @@ import {
     HStack,
     
 } from "@chakra-ui/react";
-import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro, FaExpeditedssl } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const MotionVStack = motion(VStack);
@@ -105,6 +105,17 @@ export default function NavBar() {
                                 Guide
                             </Button>
                         </Link>
+                        <Link to="/privacy">
+                            <Button
+                                leftIcon={<FaExpeditedssl />}
+                                variant="ghost"
+                                color={color}
+                                _hover={{ color: "blue.500" }}
+                            >
+                                Privacy Policy
+                            </Button>
+                        
+                        </Link>
                         <IconButton
                             icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
                             onClick={toggleColorMode}
@@ -156,9 +167,22 @@ export default function NavBar() {
                                 w="full"
                                 justifyContent="flex-start"
                             >
-                                Guide to use the app
+                                Guide
                             </MotionButton>
                         </Link>
+                       <Link to="/privacy" onClick={onClose}>
+                            <MotionButton
+                                variants={itemVariants}
+                                leftIcon={<FaExpeditedssl />}
+                                variant="ghost"
+                                w="full"
+                                justifyContent="flex-start"
+                            >
+                                Privacy Policy
+                            </MotionButton>
+                       
+                       
+                       </Link>
                         <MotionButton
                             variants={itemVariants}
                             leftIcon={colorMode === "light" ? <FaMoon /> : <FaSun />}

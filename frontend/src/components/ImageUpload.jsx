@@ -18,10 +18,25 @@ import {
     TabPanel,
     Image,
     IconButton,
-    useToast
+    useToast,
+    Link
 } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function ImageUpload() {
+
+    // Theme toggling using chakra ui
+
+    const bgColor = useColorModeValue("gray.100", "09090B");
+    const cardBg = useColorModeValue("gray.100", "#18181B");
+    const textColor = useColorModeValue("gray.800", "FAFAFA");
+    const secondaryTextColor = useColorModeValue("gray.600", "A1A1AA");
+    const borderColor = useColorModeValue("gray.200", "#27272A");
+
+
+
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [analysis, setAnalysis] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -118,15 +133,17 @@ export default function ImageUpload() {
         setAnalysis(null);
     };
 
+
+
     return (
-        <Box minH="100vh" bg="#09090B" py={8}>
+        <Box minH="100vh" bg={bgColor} py={8}>
             <Container maxW="4xl">
-                <Card bg="#18181B" borderColor="27272A">
+                <Card bg={cardBg} borderColor={borderColor}>
                     <CardHeader>
                         <VStack spacing={2} align="stretch">
                            
                             
-                            <Heading size="md" mt={4} color="FAFAFA">
+                            <Heading size="md" mt={4} color={textColor}>
                                 Reach your health goals with VitaScan
                             </Heading>
                             <Text color="A1A1AA">
@@ -139,8 +156,8 @@ export default function ImageUpload() {
                         <VStack spacing={4} align="stretch">
                             <Tabs isFitted variant="enclosed" colorScheme="blue">
                                 <TabList mb="1em">
-                                    <Tab color="white">Upload Image</Tab>
-                                    <Tab color="white">Use Camera</Tab>
+                                    <Tab color={textColor}>Upload Image</Tab>
+                                    <Tab color={textColor}>Use Camera</Tab>
                                 </TabList>
                                 <TabPanels>
                                     <TabPanel>
@@ -202,7 +219,7 @@ export default function ImageUpload() {
                                     />
                                     <IconButton
                                         aria-label="Clear image"
-                                        icon={<Text>×</Text>}
+                                        icon={<Text>x</Text>}
                                         position="absolute"
                                         top={2}
                                         right={2}
@@ -214,6 +231,7 @@ export default function ImageUpload() {
                             )}
 
                             <Button
+                                
                                 onClick={handleUpload}
                                 isDisabled={!selectedFile || loading}
                                 colorScheme="blue"
@@ -222,17 +240,22 @@ export default function ImageUpload() {
                             >
                                 Analyze Image
                             </Button>
+                            <Text fontSize="sm" mt={2}> By uploading an image, you agree to our 
+                                <Link as={RouterLink} to="/privacy">Privacy Policy</Link>.</Text>
+
+
+
 
                             {analysis && (
                                 <Box mt={6}>
-                                    <Heading size="sm" mb={2} color="FAFAFA">Analysis Results:</Heading>
+                                    <Heading size="sm" mb={2} color={textColor}>Analysis Results:</Heading>
                                     <Box 
-                                        bg="#09090B" 
+                                        bg={bgColor} 
                                         p={4} 
                                         borderRadius="md"
                                         whiteSpace="pre-wrap"
-                                        color="A1A1AA"
-                                        borderColor="#27272A"
+                                        color={secondaryTextColor}
+                                        borderColor={borderColor}
                                         borderWidth="1px"
                                     >
                                         {analysis.results}
