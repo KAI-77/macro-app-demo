@@ -54,7 +54,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     };
 
     const result = await model.generateContent([
-      "Create an estimated nutritional value for this food item and provide detailed information about its macros, including calories, fat, carbohydrates, and protein.",
+      "Analyze the food in this image and provide a straightforward estimate of its nutritional information. Include only the total calories, macronutrient breakdown (carbohydrates, proteins, and fats), and notable nutrients. Assume standard serving sizes where necessary and avoid lengthy explanations or justifications. Avoid using special characters like asterisks, and present the data in plain text.",
       imagePart,
     ]);
     const response = await result.response;
