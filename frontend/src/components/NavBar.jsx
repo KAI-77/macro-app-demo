@@ -14,13 +14,14 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
+    DrawerFooter,
     DrawerCloseButton,
     useDisclosure,
     VStack,
     HStack,
     
 } from "@chakra-ui/react";
-import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro, FaExpeditedssl } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro, FaExpeditedssl, FaUserSecret } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const MotionVStack = motion(VStack);
@@ -50,14 +51,17 @@ const itemVariants = {
 export default function NavBar() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const bg = useColorModeValue("white", "gray.800");
-    const color = useColorModeValue("gray.600", "white");
-    const borderColor = useColorModeValue("gray.200", "gray.700");
+    // const bg = useColorModeValue("white", "gray.800");
+    // const color = useColorModeValue("gray.600", "white");
+    // const borderColor = useColorModeValue("gray.200", "gray.700");
+    const bgColor = useColorModeValue("gray.100", "09090B");
+    const textColor = useColorModeValue("gray.800", "FAFAFA");
+    const borderColor = useColorModeValue("gray.200", "#27272A");
 
     return (
         <Box 
             as="nav" 
-            bg={bg} 
+            bg={bgColor} 
             boxShadow="sm"
             position="sticky"
             top="0"
@@ -75,7 +79,7 @@ export default function NavBar() {
                                 <Text
                                     fontSize="xl"
                                     fontWeight="bold"
-                                    color="gray.100"
+                                    color={textColor}
                                 >
                                     AI Powered- VitaScan
                                 </Text>
@@ -89,7 +93,7 @@ export default function NavBar() {
                             <Button
                                 leftIcon={<FaHome />}
                                 variant="ghost"
-                                color={color}
+                                color={textColor}
                                 _hover={{ color: "blue.500" }}
                             >
                                 Home
@@ -99,7 +103,7 @@ export default function NavBar() {
                             <Button
                                 leftIcon={<FaInfoCircle />}
                                 variant="ghost"
-                                color={color}
+                                color={textColor}
                                 _hover={{ color: "blue.500" }}
                             >
                                 Guide
@@ -109,7 +113,7 @@ export default function NavBar() {
                             <Button
                                 leftIcon={<FaExpeditedssl />}
                                 variant="ghost"
-                                color={color}
+                                color={textColor}
                                 _hover={{ color: "blue.500" }}
                             >
                                 Privacy Policy
@@ -198,6 +202,27 @@ export default function NavBar() {
                         </MotionButton>
                     </MotionVStack>
                 </DrawerBody>
+                        <DrawerFooter>
+                            <MotionButton
+                            as = "a"
+                            href="https://github.com/kai-77"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variants={itemVariants}
+                            leftIcon={<FaUserSecret />}
+                            w="full"
+                            justifyContent="flex-start"
+                            variant="ghost"
+                            fontSize="sm"
+                            >
+                                Developed by Shan Umbong
+                            </MotionButton>
+
+                            
+
+                        </DrawerFooter>
+
+
             </DrawerContent>
         </Drawer>
                 </Flex>

@@ -32,7 +32,7 @@ export default function ImageUpload() {
     const cardBg = useColorModeValue("gray.100", "#18181B");
     const textColor = useColorModeValue("gray.800", "FAFAFA");
     const secondaryTextColor = useColorModeValue("gray.600", "A1A1AA");
-    const borderColor = useColorModeValue("gray.200", "#27272A");
+    const borderColor = useColorModeValue("gray.900", "#27272A");
 
 
 
@@ -170,7 +170,7 @@ export default function ImageUpload() {
                                         />
                                     </TabPanel>
                                     <TabPanel>
-                                        <Box position="relative" width="100%" height="300px" bg="black" borderRadius="md">
+                                        <Box position="relative" width="100%" height="100px" bg="black" borderRadius="md">
                                             {stream ? (
                                                 <>
                                                     <video
