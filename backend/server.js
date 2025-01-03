@@ -1,10 +1,10 @@
-const express = require("express");
-const multer = require("multer");
-const dotenv = require("dotenv");
-const fs = require("fs");
-const fsPromises = fs.promises;
-const path = require("path");
-const cors = require("cors");
+import express from express
+import multer from multer
+import dotenv from dotenv
+import fs from fs
+import fsPromises from fsPromises
+import path from path
+import cors from cors
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 

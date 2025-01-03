@@ -1,8 +1,6 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { json } = require("express");
-// const { user } = require("../models/User.js"); -> add a folder model
-
+import jsonwebtoken from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { User } from "../models/User";
 const protect = async (req, res, next) => {
   let token;
 
