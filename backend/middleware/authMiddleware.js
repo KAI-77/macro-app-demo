@@ -1,6 +1,6 @@
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { User } from "../models/User";
+import { User } from "../models/User.js";
 const protect = async (req, res, next) => {
   let token;
 
