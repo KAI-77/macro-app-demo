@@ -36,7 +36,7 @@ export default function SignupForm () {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http:localhost:5000/register', formData, {
+            const response = await axios.post('http://localhost:5000/register', formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
