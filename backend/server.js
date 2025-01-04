@@ -1,12 +1,11 @@
-import express from express
-import multer from multer
-import dotenv from dotenv
-import fs from fs
-import fsPromises from fsPromises
-import path from path
-import cors from cors
+import express from "express";
+import multer from "multer";
+import dotenv from "dotenv";
+import fs, { promises as fsPromises } from "fs";
+import path from "path";
+import cors from "cors";
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 const app = express();
