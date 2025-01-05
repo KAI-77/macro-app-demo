@@ -88,45 +88,13 @@ export default function LoginForm () {
                 </form>
                         <Text mt={6} fontSize="sm" className="text-gray-600" textAlign="center">
                             Don't have an account? {'  '}
-                            <Link to="/register">
-                            <ChakraLink color="blue.500" hover="underline">
-                                Sign up
-                            </ChakraLink>
-                            </Link>
+                        <ChakraLink as={Link} to="/register" color="blue.500" _hover={{ textDecoration: "underline" }}>
+                            Sign up
+                        </ChakraLink>
+
                         </Text>
             </Box>
-
-
-
-
-
-
-
-
-
             </VStack>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </Container>
 
 

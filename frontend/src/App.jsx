@@ -26,7 +26,7 @@ function App() {
             // public routes
           <Route path= "/register" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
+         
 
             // protected routes
           
@@ -41,6 +41,13 @@ function App() {
           <InfoPage />
           </ProtectedRoute>
           } />
+
+          <Route path='/privacy' element={
+            <ProtectedRoute>
+              <PrivacyPolicy />
+              </ProtectedRoute>
+          }/>
+
           </Routes>
           </AuthProvider>
           </main>

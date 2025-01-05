@@ -116,11 +116,9 @@ export default function SignupForm () {
                     </form>
                         <Text mt={6} fontSize="sm" className="text-gray-600" textAlign="center">
                             Already have an account?{'  '}
-                            <Link to="/login">
-                            <ChakraLink color="blue.500" hover="underline">
-                            Login
+                            <ChakraLink as={Link} to="/login" color="blue.500" _hover={{ textDecoration: "underline"}}>
+                                    Login
                             </ChakraLink>
-                            </Link>
                         </Text>
                 </Box>
 
