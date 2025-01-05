@@ -93,6 +93,13 @@ export default function LoginForm () {
                         </ChakraLink>
 
                         </Text>
+
+                        <Text mt={4} fontSize="sm" textAlign="center" className="text-gray-600">
+                            By using this app, you agree to the{'  '}
+                        <ChakraLink as={Link} to="/terms" color="blue.500" _hover={{ textDecoration: "underline"}}>
+                                Terms and Conditions
+                            </ChakraLink>    
+                        </Text>
             </Box>
             </VStack>
         </Container>

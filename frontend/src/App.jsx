@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import LoginForm from './components/auth/LoginForm.jsx';
 import SignupForm from './components/auth/SignupForm';
 import ProtectedRoute from './context/ProtectedRoute.jsx';
+import TermsPage from './components/TermsPage.jsx';
 
 
 
@@ -26,6 +27,7 @@ function App() {
             // public routes
           <Route path= "/register" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path='/terms' element={<TermsPage />} />
          
 
             // protected routes
