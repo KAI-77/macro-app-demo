@@ -1,4 +1,4 @@
-import { Container, FormControl, FormLabel, VStack, Input, Box, Button} from "@chakra-ui/react";
+import { Container, FormControl, FormLabel, VStack, Input, Box, Button, useToast, Heading} from "@chakra-ui/react";
 import React, { useState } from "react";
 
 import {useNavigate} from 'react-router-dom'
@@ -74,7 +74,7 @@ export default function SignupForm () {
         }
 
     };
-}
+
 
     return  (
         <Container maxW= "container.sm" py={10}>
@@ -103,7 +103,7 @@ export default function SignupForm () {
                             <FormLabel>
                                 Confirm Password
                             </FormLabel>
-                            <Input name="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password"            />
+                            <Input name="password" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password"            />
                         </FormControl>
                         <Button colorScheme="blue" width="100%" type="submit" isLoading={isLoading}>
                             Sign up
@@ -158,21 +158,4 @@ export default function SignupForm () {
 
     )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
