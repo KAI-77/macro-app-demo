@@ -1,7 +1,7 @@
-import { Container, FormControl, FormLabel, VStack, Input, Box, Button, useToast, Heading} from "@chakra-ui/react";
+import { Container, FormControl, FormLabel, VStack, Input, Box, Button, useToast, Heading, Text, Link as ChakraLink} from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link } from 'react-router-dom'
 
 export default function SignupForm () {
     const [formData, setFormData] = useState({
@@ -114,6 +114,14 @@ export default function SignupForm () {
 
 
                     </form>
+                        <Text mt={6} fontSize="sm" className="text-gray-600" textAlign="center">
+                            Already have an account?{'  '}
+                            <Link to="/login">
+                            <ChakraLink color="blue.500" hover="underline">
+                            Login
+                            </ChakraLink>
+                            </Link>
+                        </Text>
                 </Box>
 
             </VStack>
