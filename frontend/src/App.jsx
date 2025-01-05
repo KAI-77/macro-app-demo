@@ -5,6 +5,7 @@ import ImageUpload from './components/ImageUpload.jsx';
 import Footer from './components/Footer.jsx';
 import InfoPage from './components/InfoPage.jsx';
 import PrivacyPolicy from './components/PrivacyPolicy.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 
 
@@ -18,9 +19,11 @@ function App() {
           <Navbar />
           <main style={{ flex: 1 }}>
           <Routes>
+          <AuthProvider>
           <Route path="/" element={<ImageUpload />} />
           <Route path="/info" element={<InfoPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          </AuthProvider>
           </Routes>
           </main>
           <Footer />
