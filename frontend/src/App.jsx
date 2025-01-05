@@ -23,11 +23,12 @@ function App() {
           <main style={{ flex: 1 }}>
           <AuthProvider> 
           <Routes>
+            // public routes
           <Route path= "/register" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
 
-
+            // protected routes
           
           <Route path="/" element={
             <ProtectedRoute>
