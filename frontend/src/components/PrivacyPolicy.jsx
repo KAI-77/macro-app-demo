@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
 return (
     <Box p={4} maxWidth="600px" mx="auto" mt={6}>
     
-
+    
 
     <Heading size="lg" mb={2}>Privacy Policy</Heading>
     <Text mb={3}>
