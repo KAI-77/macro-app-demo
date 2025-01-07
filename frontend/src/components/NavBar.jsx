@@ -81,7 +81,7 @@ export default function NavBar() {
                                     fontWeight="bold"
                                     color={textColor}
                                 >
-                                    AI Powered- VitaScan
+                                    VitaScan
                                 </Text>
                             </HStack>
                         </Link>
@@ -109,14 +109,14 @@ export default function NavBar() {
                                 Guide
                             </Button>
                         </Link>
-                        <Link to="/privacy">
+                        <Link to="/login">
                             <Button
                                 leftIcon={<FaExpeditedssl />}
                                 variant="ghost"
                                 color={textColor}
                                 _hover={{ color: "blue.500" }}
                             >
-                                Privacy Policy
+                               Login
                             </Button>
                         
                         </Link>
@@ -174,7 +174,7 @@ export default function NavBar() {
                                 Guide
                             </MotionButton>
                         </Link>
-                       <Link to="/privacy" onClick={onClose}>
+                       <Link to="/login" onClick={onClose}>
                             <MotionButton
                                 variants={itemVariants}
                                 leftIcon={<FaExpeditedssl />}
@@ -182,7 +182,7 @@ export default function NavBar() {
                                 w="full"
                                 justifyContent="flex-start"
                             >
-                                Privacy Policy
+                                Login
                             </MotionButton>
                        
                        
