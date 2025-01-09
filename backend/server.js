@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import fs, { promises as fsPromises } from "fs";
 import path from "path";
 import cors from "cors";
+import { connectDB } from "./config/db.js";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -70,5 +71,6 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
 });
 
 app.listen(PORT, () => {
+  connectDB();
   console.log(`Server is running on port ${PORT}`);
 });
