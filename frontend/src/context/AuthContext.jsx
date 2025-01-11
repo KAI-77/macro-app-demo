@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -8,7 +9,10 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    const navigate = useNavigate
+    const navigate = useNavigate();
+
+
+
 
     useEffect(() => {
         // Check if user is logged in
@@ -30,29 +34,37 @@ export function AuthProvider({ children }) {
 
     const verifyToken = async (token) => {
         try {
-            const response = await fetch('http://localhost:5000/verify', {
+            const response = await fetch('/api/auth/verify', {
+                method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token},`
+                    Authorization: `Bearer ${token}`
                 }
             })
             if (response.ok) {
                 const data =  await response.json()
-                setUser(data)
+                setUser(data.user)
 
 
             } else {
                 localStorage.removeItem('userToken')
+                setUser(null)
+                navigate('/login')
             }
         } catch (error) {
             console.error('Error verifying token:' , error)
             localStorage.removeItem('userToken')
+            setUser(null)
+            navigate('/login')
+        } finally {
+            setLoading(false)
         }
-        setLoading(false)
-    };
+      
+
+    }
 
     const logout = () => {
         localStorage.removeItem('userToken')
-        setUser=(null)
+        setUser(null)
         navigate('/login')
     }
 

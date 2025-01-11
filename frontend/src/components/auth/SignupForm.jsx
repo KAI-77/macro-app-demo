@@ -1,6 +1,6 @@
 import { Container, FormControl, FormLabel, VStack, Input, Box, Button, useToast, Heading, Text, Link as ChakraLink} from "@chakra-ui/react";
 import React, { useState } from "react";
-
+import axios from "axios";
 import {useNavigate, Link } from 'react-router-dom'
 
 export default function SignupForm () {
@@ -13,7 +13,7 @@ export default function SignupForm () {
 
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
-    const navigate = useNavigate;
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setFormData({
@@ -36,20 +36,20 @@ export default function SignupForm () {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/register', formData, {
+            const response = await axios.post('api/auth/register', formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
 
-            const data= await response.json()
+            const data= response.data
 
             if (response.ok) {
                 localStorage.setItem('userToken', data.token);
                 toast({
                     title: 'Account created.',
                     description: 'Successfully created your account',
-                    status: success,
+                    status: "success",
                     duration: 3000,
                     isClosable: true
                 });
@@ -103,7 +103,7 @@ export default function SignupForm () {
                             <FormLabel>
                                 Confirm Password
                             </FormLabel>
-                            <Input name="password" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password"            />
+                            <Input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password"            />
                         </FormControl>
                         <Button colorScheme="blue" width="100%" type="submit" isLoading={isLoading}>
                             Sign up
