@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     Container,
     Box,
@@ -19,9 +20,10 @@ import {
     useDisclosure,
     VStack,
     HStack,
+    useToast
     
 } from "@chakra-ui/react";
-import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro, FaExpeditedssl, FaUserSecret } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaHome, FaInfoCircle, FaCameraRetro, FaExpeditedssl, FaUserSecret, FaDoorOpen } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const MotionVStack = motion(VStack);
@@ -57,6 +59,33 @@ export default function NavBar() {
     const bgColor = useColorModeValue("gray.100", "gray.900");
     const textColor = useColorModeValue("gray.800", "FAFAFA");
     const borderColor = useColorModeValue("gray.200", "#27272A");
+    const navigate = useNavigate();
+    const toast = useToast();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('userToken');
+
+        if (token) {
+            setIsLoggedIn(true);
+    } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+
+    const handleLogout = () => {
+        localStorage.removeItem('userToken');
+        setIsLoggedIn(false);
+        toast({
+            title: 'Logged out',
+            status: 'success',
+            duration: 3000,
+            isClosable: true
+        })
+        navigate('/login');
+     
+    }
 
     return (
         <Box 
@@ -109,17 +138,18 @@ export default function NavBar() {
                                 Guide
                             </Button>
                         </Link>
-                        <Link to="/login">
-                            <Button
-                                leftIcon={<FaExpeditedssl />}
-                                variant="ghost"
-                                color={textColor}
-                                _hover={{ color: "blue.500" }}
-                            >
-                               Login
-                            </Button>
+                        {isLoggedIn ? (
+                    <Button onClick={handleLogout} leftIcon={<FaDoorOpen />} variant="ghost" color="gray.700" _hover={{ color: "blue.500" }}>
+                        Logout
+                    </Button>
+                ) : (
+                    <Link to="/login">
+                        <Button leftIcon={<FaExpeditedssl />} variant="ghost" color="gray.700" _hover={{ color: "blue.500" }}>
+                            Login
+                        </Button>
+                    </Link>
+                )}
                         
-                        </Link>
                         <IconButton
                             icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
                             onClick={toggleColorMode}
@@ -174,19 +204,18 @@ export default function NavBar() {
                                 Guide
                             </MotionButton>
                         </Link>
-                       <Link to="/login" onClick={onClose}>
-                            <MotionButton
-                                variants={itemVariants}
-                                leftIcon={<FaExpeditedssl />}
-                                variant="ghost"
-                                w="full"
-                                justifyContent="flex-start"
-                            >
-                                Login
-                            </MotionButton>
+                        {isLoggedIn ? (
+                    <Button onClick={handleLogout} leftIcon={<FaDoorOpen />} variant="ghost" color="gray.700" _hover={{ color: "blue.500" }}>
+                        Logout
+                    </Button>
+                ) : (
+                    <Link to="/login">
+                        <Button leftIcon={<FaExpeditedssl />} variant="ghost" color="gray.700" _hover={{ color: "blue.500" }}>
+                            Login
+                        </Button>
+                    </Link>
+                )}
                        
-                       
-                       </Link>
                         <MotionButton
                             variants={itemVariants}
                             leftIcon={colorMode === "light" ? <FaMoon /> : <FaSun />}
@@ -204,18 +233,14 @@ export default function NavBar() {
                 </DrawerBody>
                         <DrawerFooter>
                             <MotionButton
-                            as = "a"
-                            href="https://github.com/kai-77"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            variants={itemVariants}
-                            leftIcon={<FaUserSecret />}
-                            w="full"
-                            justifyContent="flex-start"
-                            variant="ghost"
-                            fontSize="sm"
-                            >
-                                Developed by Shan Umbong
+                                variants={itemVariants}
+                                leftIcon={<FaDoorOpen />}
+                                variant="ghost"
+                                w="full"
+                                justifyContent="flex-start"
+                                onClick={handleLogout}
+                                >
+                                    Logout
                             </MotionButton>
 
                             

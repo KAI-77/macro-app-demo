@@ -2,7 +2,7 @@ import { FormControl, Heading, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { VStack, Container, Box, FormLabel, Button, Input, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
-
+import axios from "axios";
 export default function LoginForm () {
     const [formData, setFormData] = useState({
         email: '',
@@ -11,7 +11,7 @@ export default function LoginForm () {
 
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
-    const navigate = useNavigate
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setFormData({
@@ -25,15 +25,15 @@ export default function LoginForm () {
 
 
         try {
-            const response = await axios.post('api/auth/login', formData, {
+            const response = await axios.post('http://localhost:5000/api/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
 
-            const data= await response.json()
+            const data= response.data
 
-            if (response.ok) {
+            if (response.status === 200) {
                 localStorage.setItem('userToken', data.token);
                 toast({
                     title: 'Login Successful',
@@ -41,19 +41,23 @@ export default function LoginForm () {
                     duration: 3000,
                     isClosable: true
                 })
-                navigate('/')
+                navigate('/upload')
             } else {
-                throw new Error(data.message || 'Invalid credentials')
+            toast({
+                title: "Error",
+                description: error.response.data.message || 'Invalid credentials',
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            })    
+               
             }
-
-
-
 
             
         } catch (error) {
             toast({
                 title: "Error",
-                description: error.message,
+                description: error.response ? error.response.data.message : 'Network error, please try again',
                 status: 'error',
                 duration: 3000,
                 isClosable: true

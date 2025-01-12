@@ -22,58 +22,74 @@ export default function SignupForm () {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (formData.password != formData.confirmPassword) {
-            toast({
-                title: 'Error',
-                description: 'Passwords do not match',
-                status: 'error',
-                duration: '3000',
-                isClosable: true
-            })
-            return;
+      
+        if (formData.password !== formData.confirmPassword) {
+          toast({
+            title: 'Error',
+            description: 'Passwords do not match',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          });
+          return;
         }
+      
         setIsLoading(true);
-
+      
         try {
-            const response = await axios.post('api/auth/register', formData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            const data= response.data
-
-            if (response.ok) {
-                localStorage.setItem('userToken', data.token);
-                toast({
-                    title: 'Account created.',
-                    description: 'Successfully created your account',
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true
-                });
-                navigate('/')
-            } else {
-                throw new Error(data.message || 'Something went wrong')
-            }
-
-
-
-
-        } catch (error) {
+          const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          const data = response.data;
+      
+          if (response.status === 201) {
+            localStorage.setItem('userToken', data.token);
             toast({
+              title: 'Account created.',
+              description: 'Successfully created your account',
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            });
+            navigate('/login');
+          }
+        } catch (error) {
+          if (error.response) {
+            if (error.response.status === 409) {
+              toast({
                 title: 'Error',
-                description: error.message,
-                status: error,
+                description: 'User already exists with that email',
+                status: 'error',
                 duration: 3000,
                 isClosable: true,
-            })
+              });
+            } else {
+              // Generic error handling
+              toast({
+                title: 'Error',
+                description: error.response.data.message || 'Something went wrong',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+              });
+            }
+          } else {
+            toast({
+              title: 'Error',
+              description: 'Network error, please try again',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+            });
+          }
         } finally {
-            setIsLoading(false)
+          setIsLoading(false);
         }
-
-    };
+      };
+      
 
 
     return  (
