@@ -20,128 +20,154 @@ export default function SignupForm () {
             ...formData, [e.target.name]: e.target.value
         })
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
+
+        console.log('Submitting form data:', {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password.length, // log length only for security
+        });
+
         if (formData.password !== formData.confirmPassword) {
-          toast({
-            title: 'Error',
-            description: 'Passwords do not match',
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          });
-          return;
+            toast({
+                title: 'Error',
+                description: 'Passwords do not match',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
+            return;
         }
-      
+
         setIsLoading(true);
-      
+
+        // Create a new object with only the required fields
+        const registrationData = {
+            name: formData.name.trim(),
+            email: formData.email.trim().toLowerCase(),
+            password: formData.password
+        };
+
         try {
-          const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-      
-          const data = response.data;
-      
-          if (response.status === 201) {
-            localStorage.setItem('userToken', data.token);
-            toast({
-              title: 'Account created.',
-              description: 'Successfully created your account',
-              status: 'success',
-              duration: 3000,
-              isClosable: true,
+            const response = await axios.post('http://localhost:5000/api/auth/register', registrationData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
-            navigate('/login');
-          }
-        } catch (error) {
-          if (error.response) {
-            if (error.response.status === 409) {
-              toast({
-                title: 'Error',
-                description: 'User already exists with that email',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-              });
-            } else {
-              // Generic error handling
-              toast({
-                title: 'Error',
-                description: error.response.data.message || 'Something went wrong',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-              });
+
+            const data = response.data;
+
+            if (response.status === 201) {
+                localStorage.setItem('userToken', data.token);
+                toast({
+                    title: 'Account created.',
+                    description: 'Successfully created your account',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+                navigate('/login');
             }
-          } else {
-            toast({
-              title: 'Error',
-              description: 'Network error, please try again',
-              status: 'error',
-              duration: 3000,
-              isClosable: true,
-            });
-          }
+        } catch (error) {
+            console.error('Registration error:', error.response || error);
+
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                toast({
+                    title: 'Error',
+                    description: errorMessage || 'Registration failed',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else if (error.request) {
+                toast({
+                    title: 'Error',
+                    description: 'No response from server. Please check your connection.',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: 'Error',
+                    description: 'Failed to send request',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
-      };
-      
+    };
 
-
-    return  (
-        <Container maxW= "container.sm" py={10}>
+    return (
+        <Container maxW="container.sm" py={10}>
             <VStack spacing={8}>
                 <Heading>
                     Create an account
                 </Heading>
                 <Box w="100%" p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
-                    <form onSubmit= {handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <VStack spacing={4}>
                             <FormControl isRequired>
                                 <FormLabel>Name</FormLabel>
-                                <Input name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name"/>
-                               
+                                <Input
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="Enter your name"
+                                />
                             </FormControl>
 
-                        <FormControl isRequired>
-                            <FormLabel>Email</FormLabel>
-                        <Input name= "email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"/>
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>Password</FormLabel>
-                            <Input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Enter your password"            />
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>
-                                Confirm Password
-                            </FormLabel>
-                            <Input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password"            />
-                        </FormControl>
-                        <Button colorScheme="blue" width="100%" type="submit" isLoading={isLoading}>
-                            Sign up
-                        </Button>
+                            <FormControl isRequired>
+                                <FormLabel>Email</FormLabel>
+                                <Input
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Enter your email"
+                                />
+                            </FormControl>
 
+                            <FormControl isRequired>
+                                <FormLabel>Password</FormLabel>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="Enter your password"
+                                />
+                            </FormControl>
+
+                            <FormControl isRequired>
+                                <FormLabel>Confirm Password</FormLabel>
+                                <Input
+                                    name="confirmPassword"
+                                    type="password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    placeholder="Confirm your password"
+                                />
+                            </FormControl>
+
+                            <Button
+                                type="submit"
+                                colorScheme="blue"
+                                width="full"
+                                isLoading={isLoading}
+                            >
+                                Sign Up
+                            </Button>
                         </VStack>
-
-
-
                     </form>
-                        <Text mt={6} fontSize="sm" className="text-gray-600" textAlign="center">
-                            Already have an account?{'  '}
-                            <ChakraLink as={Link} to="/login" color="blue.500" _hover={{ textDecoration: "underline"}}>
-                                    Login
-                            </ChakraLink>
-                        </Text>
                 </Box>
-
             </VStack>
         </Container>
-            
-        
-    )
-
+    );
 }
