@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import analyzeRoutes from "./routes/analyze.js";
 import auth from "./routes/auth.js";
+import recipeRoutes from "./routes/recipe.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ connectDB();
 
 // Routes
 app.use("/api", analyzeRoutes);
+app.use("/api", recipeRoutes);
 app.use("/api/auth", auth);
 
 // Starting the server

@@ -21,11 +21,15 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if user exists
-    const userExists = await User.findOne({ email });
+    // Normalize email to lowercase and trim whitespace
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Check if user exists (using normalized email)
+    const userExists = await User.findOne({ email: normalizedEmail });
     if (userExists) {
       return res.status(409).json({ message: "User already exists" });
     }
+
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -33,20 +37,27 @@ export const registerUser = async (req, res) => {
     // Create a user
     const user = await User.create({
       name,
-      email,
+      email: normalizedEmail,  // Store normalized email
       password: hashedPassword,
     });
 
     if (user) {
       res.status(201).json({
-        _id: user.id,
+        id: user._id,  // Fixed the id reference
         name: user.name,
         email: user.email,
-        token: generateToken(user._id),
+        token: generateToken(user._id),  // Fixed the id reference
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error('Registration error:', error);  // Add logging
+
+    // More specific error handling
+    if (error.code === 11000) {  // MongoDB duplicate key error
+      return res.status(409).json({ message: "User already exists" });
+    }
+
+    res.status(500).json({ message: "Server error during registration" });
   }
 };
 
