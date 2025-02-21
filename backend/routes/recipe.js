@@ -5,7 +5,7 @@ import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/recipe", getRecipe);
+router.post("/recipe", protect, getRecipe);
 
 
 export default router;

@@ -14,8 +14,7 @@ export const getRecipe = async (req, res) => {
         const genAI = new GoogleGenerativeAI(process.env.API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        const prompt = `Generate a simple and healthy recipe using ${foodName}. 
-      Include ingredients, step-by-step instructions, and a short cooking tip.Provide only the plain text recipe, without markdown formatting, symbols, or extra characters`
+        const prompt = "Analyze the food in this image and provide a straightforward estimate of its nutritional information..."
 
         const result = await model.generateContent([prompt]);
         let recipe = await result.response.text();

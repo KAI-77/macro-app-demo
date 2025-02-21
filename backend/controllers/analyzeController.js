@@ -22,6 +22,11 @@ export const analyzeImage = async (req, res) => {
       ".png": "image/png",
       ".gif": "image/gif",
       ".webp": "image/webp",
+      ".bmp": "image/bmp",
+      ".tiff": "image/tiff",
+      ".tif": "image/tiff",
+      ".svg": "image/svg+xml",
+      ".JFIF": "image/jfif",
     };
 
     const fileExtension = path.extname(req.file.originalname).toLowerCase();
@@ -35,9 +40,18 @@ export const analyzeImage = async (req, res) => {
     };
 
     const result = await model.generateContent([
-      "Analyze the food in this image and provide a straightforward estimate of its nutritional information...",
+      "Assume this is a dish submitted by a user. \n" +
+      "  - Generate a complete recipe based on the dish in the image. \n" +
+      "  - Identify the most likely ingredients and their approximate measurements.\n" +
+      "  - Provide a detailed, numbered step-by-step guide on how to prepare the dish.\n" +
+      "  - Format instructions properly like:\n" +
+      "    1. Step one  \n" +
+      "    2. Step two  \n" +
+      "    3. Step three  \n" +
+      "  - Do NOT mention image limitations. Just assume and generate the best possible recipe.",
       imagePart,
     ]);
+    console.log(result);
 
     const macroInfo = await result.response.text();
     await fsPromises.unlink(imagePath); // Cleanup file
