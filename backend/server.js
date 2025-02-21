@@ -22,7 +22,7 @@ connectDB();
 
 // Routes
 app.use("/api", analyzeRoutes);
-// app.use("/api", recipeRoutes);
+app.use("/api", recipeRoutes);
 app.use("/api/auth", auth);
 
 // Starting the server

@@ -14,7 +14,7 @@ export const analyzeImage = async (req, res) => {
     });
 
     const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const mimeTypes = {
       ".jpg": "image/jpeg",
@@ -40,25 +40,43 @@ export const analyzeImage = async (req, res) => {
     };
 
     const result = await model.generateContent([
-      "Assume this is a dish submitted by a user. \n" +
-      "  - Generate a complete recipe based on the dish in the image. \n" +
-      "  - Identify the most likely ingredients and their approximate measurements.\n" +
-      "  - Provide a detailed, numbered step-by-step guide on how to prepare the dish.\n" +
-      "  - Format instructions properly like:\n" +
-      "    1. Step one  \n" +
-      "    2. Step two  \n" +
-      "    3. Step three  \n" +
-      "  - Do NOT mention image limitations. Just assume and generate the best possible recipe.",
+      `Assume this is a dish submitted by a user, Analyze this recipe image and provide:
+        1. List all ingredients with their exact quantities (be specific with measurements)
+        2. Step by step cooking procedure
+
+      Format the response as:
+      INGREDIENTS:
+      - (list each ingredient with quantity)
+
+      PROCEDURE:
+        1. (list each step)
+      Do NOT mention image limitations. Just assume and generate the best possible recipe.`,
       imagePart,
     ]);
-    console.log(result);
+
+    // Process ingredients separately
+    const response = await result.response.text();
+
+    const sections = response.split("PROCEDURE:");
+    const ingredientSection = sections[0].replace("INGREDIENTS:", '').trim();
+
+    const ingredients = ingredientSection.split('\n').map(item => item.trim().replace(/^-\s*/, ''
+    )).filter(item => item.length > 0);
+
+
+
+
 
     const macroInfo = await result.response.text();
     await fsPromises.unlink(imagePath); // Cleanup file
 
     res.json({
-      results: macroInfo,
-      image: `data:${mimeType};base64, ${imageData.toString("base64")}`,
+      analysis: {
+        fullResults: response,
+        ingredients: ingredients,
+        image: `data:${mimeType};base64, ${imageData.toString("base64")}`
+      }
+
     });
   } catch (error) {
     await fsPromises.unlink(imagePath); // Cleanup in case of error
