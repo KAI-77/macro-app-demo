@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import  { useState, useRef } from 'react';
 import axios from 'axios';
 import {
     Box,
@@ -19,22 +19,13 @@ import {
     Image,
     IconButton,
     useToast,
-    Link
+    Link, Center, HStack, Flex, Divider
 } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 export default function ImageUpload() {
-
-    // Theme toggling using chakra ui
-
-    const bgColor = useColorModeValue("gray.100", "09090B");
-    const cardBg = useColorModeValue("gray.100", "#18181B");
-    const textColor = useColorModeValue("gray.800", "FAFAFA");
-    const secondaryTextColor = useColorModeValue("gray.600", "A1A1AA");
-    const borderColor = useColorModeValue("gray.900", "#27272A");
-
-
 
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -44,6 +35,20 @@ export default function ImageUpload() {
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
     const toast = useToast();
+
+
+    const MotionBox = motion(Box);
+
+    // Theme toggling using chakra ui
+
+    const bgColor = useColorModeValue("gray.50", "#121212");
+    const cardBg = useColorModeValue("white", "#1E1E1E");
+    const textColor = useColorModeValue("gray.800", "#FFFFFF");
+    const secondaryTextColor = useColorModeValue("gray.600", "#B0B0B0");
+    const borderColor = useColorModeValue("gray.200", "#333333");
+    const buttonBg = useColorModeValue("blue.500", "blue.400");
+    const buttonHoverBg = useColorModeValue("blue.600", "blue.500");
+
 
     const startCamera = async () => {
         try {
@@ -101,12 +106,14 @@ export default function ImageUpload() {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/analyze', formData, {
+            const response = await axios.post('http://localhost:5000/api/analyze', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+
                 },
             });
-            setAnalysis(response.data);
+            setAnalysis(response.data.results);
             toast({
                 title: 'Success',
                 description: 'Image analyzed successfully',
@@ -136,140 +143,190 @@ export default function ImageUpload() {
 
 
     return (
-        <Box bg={bgColor} py={8}>
+        <Box bg={bgColor} minH="100vh" py={12}>
             <Container maxW="4xl">
-                <Card bg={cardBg} borderColor={borderColor}>
-                    <CardHeader>
-                        <VStack spacing={2} align="stretch">
-                           
-                            
-                            <Heading size="md" mt={4} color={textColor}>
-                                Reach your health goals with VitaScan
+                <MotionBox
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Card
+                        bg={cardBg}
+                        borderColor={borderColor}
+                        borderWidth="1px"
+                        borderRadius="xl"
+                        overflow="hidden"
+                        boxShadow="xl"
+                    >
+                        <CardHeader pb={0}>
+                            <Heading
+                                size="lg"
+                                color={textColor}
+                                textAlign="center"
+                                mb={4}
+                            >
+                                Recipe Analysis Tool
                             </Heading>
-                            <Text color="A1A1AA">
-                                Your personal nutrition tracking app powered by AI
+                            <Text
+                                color={secondaryTextColor}
+                                textAlign="center"
+                                mb={6}
+                            >
+                                Upload or capture an image of a recipe and get a detailed list of ingredients and procedures.
                             </Text>
-                        </VStack>
-                    </CardHeader>
+                        </CardHeader>
 
-                    <CardBody>
-                        <VStack spacing={4} align="stretch">
-                            <Tabs isFitted variant="enclosed" colorScheme="blue">
-                                <TabList mb="1em">
-                                    <Tab color={textColor}>Upload Image</Tab>
-                                    <Tab color={textColor}>Use Camera</Tab>
+                        <CardBody>
+                            <Tabs isFitted variant="soft-rounded" colorScheme="blue">
+                                <TabList mb={4}>
+                                    <Tab>Upload Image</Tab>
+                                    <Tab>Take Photo</Tab>
                                 </TabList>
+
                                 <TabPanels>
                                     <TabPanel>
-                                        <Input
-                                            type="file"
-                                            onChange={handleFileChange}
-                                            accept="image/*"
-                                            variant="filled"
-                                            p={1}
-                                        />
+                                        <VStack spacing={6}>
+                                            <Center
+                                                w="full"
+                                                h="300px"
+                                                borderRadius="lg"
+                                                borderWidth="2px"
+                                                borderStyle="dashed"
+                                                borderColor={borderColor}
+                                                bg={useColorModeValue("gray.50", "gray.900")}
+                                                position="relative"
+                                                overflow="hidden"
+                                            >
+                                                {preview ? (
+                                                    <Image
+                                                        src={preview}
+                                                        alt="Preview"
+                                                        maxH="100%"
+                                                        objectFit="contain"
+                                                    />
+                                                ) : (
+                                                    <VStack spacing={3}>
+                                                        <Text color={secondaryTextColor}>
+                                                            Drag and drop your image here or
+                                                        </Text>
+                                                        <Button
+                                                            as="label"
+                                                            htmlFor="file-upload"
+                                                            bg={buttonBg}
+                                                            color="white"
+                                                            _hover={{ bg: buttonHoverBg }}
+                                                            cursor="pointer"
+                                                        >
+                                                            Browse Files
+                                                            <Input
+                                                                id="file-upload"
+                                                                type="file"
+                                                                accept="image/*"
+                                                                onChange={handleFileChange}
+                                                                display="none"
+                                                            />
+                                                        </Button>
+                                                    </VStack>
+                                                )}
+                                            </Center>
+
+                                            <HStack spacing={4} w="full" justify="center">
+                                                <Button
+                                                    onClick={handleUpload}
+                                                    isLoading={loading}
+                                                    bg={buttonBg}
+                                                    color="white"
+                                                    _hover={{ bg: buttonHoverBg }}
+                                                    isDisabled={!selectedFile}
+                                                    px={8}
+                                                >
+                                                    Analyze Image
+                                                </Button>
+                                                {selectedFile && (
+                                                    <Button
+                                                        onClick={clearImage}
+                                                        variant="ghost"
+                                                        colorScheme="red"
+                                                    >
+                                                        Clear
+                                                    </Button>
+                                                )}
+                                            </HStack>
+                                        </VStack>
                                     </TabPanel>
+
                                     <TabPanel>
-                                        <Box position="relative" width="100%" height="100px" bg="black" borderRadius="md">
-                                            {stream ? (
-                                                <>
+                                        <VStack spacing={6}>
+                                            <Center
+                                                w="full"
+                                                h="300px"
+                                                borderRadius="lg"
+                                                borderWidth="2px"
+                                                overflow="hidden"
+                                                position="relative"
+                                            >
+                                                {stream ? (
                                                     <video
                                                         ref={videoRef}
                                                         autoPlay
-                                                        playsInline
                                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                                     />
+                                                ) : (
                                                     <Button
-                                                        position="absolute"
-                                                        bottom="4"
-                                                        left="50%"
-                                                        transform="translateX(-50%)"
-                                                        onClick={captureImage}
-                                                        colorScheme="blue"
+                                                        onClick={startCamera}
+                                                        bg={buttonBg}
+                                                        color="white"
+                                                        _hover={{ bg: buttonHoverBg }}
                                                     >
-                                                        Capture
+                                                        Start Camera
                                                     </Button>
-                                                </>
-                                            ) : (
-                                                <Button
-                                                    position="absolute"
-                                                    top="50%"
-                                                    left="50%"
-                                                    transform="translate(-50%, -50%)"
-                                                    onClick={startCamera}
-                                                    colorScheme="blue"
-                                                >
-                                                    Start Camera
-                                                </Button>
+                                                )}
+                                            </Center>
+
+                                            {stream && (
+                                                <HStack spacing={4}>
+                                                    <Button
+                                                        onClick={captureImage}
+                                                        bg={buttonBg}
+                                                        color="white"
+                                                        _hover={{ bg: buttonHoverBg }}
+                                                    >
+                                                        Capture Photo
+                                                    </Button>
+                                                    <Button
+                                                        onClick={stopCamera}
+                                                        variant="ghost"
+                                                        colorScheme="red"
+                                                    >
+                                                        Stop Camera
+                                                    </Button>
+                                                </HStack>
                                             )}
-                                        </Box>
+                                        </VStack>
                                     </TabPanel>
                                 </TabPanels>
                             </Tabs>
 
-                            {preview && (
-                                <Box position="relative">
-                                    <Image
-                                        src={preview}
-                                        alt="Preview"
-                                        borderRadius="md"
-                                        maxH="300px"
-                                        w="100%"
-                                        objectFit="cover"
-                                    />
-                                    <IconButton
-                                        aria-label="Clear image"
-                                        icon={<Text>x</Text>}
-                                        position="absolute"
-                                        top={2}
-                                        right={2}
-                                        onClick={clearImage}
-                                        colorScheme="red"
-                                        size="sm"
-                                    />
-                                </Box>
-                            )}
-
-                            <Button
-                                
-                                onClick={handleUpload}
-                                isDisabled={!selectedFile || loading}
-                                colorScheme="blue"
-                                isLoading={loading}
-                                loadingText="Analyzing"
-                            >
-                                Analyze Image
-                            </Button>
-                            <Text fontSize="sm" mt={2}> By uploading an image, you agree to our{' '}
-                                <Link as={RouterLink} to="/privacy" color="blue.500">
-                                Privacy Policy
-                                </Link>
-                                .
-                                </Text>
-
-
-
-
                             {analysis && (
-                                <Box mt={6}>
-                                    <Heading size="sm" mb={2} color={textColor}>Analysis Results:</Heading>
-                                    <Box 
-                                        bg={bgColor} 
-                                        p={4} 
-                                        borderRadius="md"
-                                        whiteSpace="pre-wrap"
-                                        color={secondaryTextColor}
-                                        borderColor={borderColor}
-                                        borderWidth="1px"
-                                    >
-                                        {analysis.results}
-                                    </Box>
+                                <Box
+                                    mt={8}
+                                    p={6}
+                                    borderRadius="lg"
+                                    bg={useColorModeValue("gray.50", "gray.900")}
+                                >
+                                    <Heading size="md" mb={4} color={textColor}>
+                                        Analysis Results
+                                    </Heading>
+                                    <Text color={secondaryTextColor}>
+                                        {analysis}
+                                    </Text>
                                 </Box>
                             )}
-                        </VStack>
-                    </CardBody>
-                </Card>
+                        </CardBody>
+                    </Card>
+                </MotionBox>
             </Container>
         </Box>
     );
+
 }
