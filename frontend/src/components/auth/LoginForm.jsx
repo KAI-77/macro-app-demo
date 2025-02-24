@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { VStack, Container, Box, FormLabel, Button, Input, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import {useAuth} from "../../context/AuthContext"
+
 export default function LoginForm () {
     const [formData, setFormData] = useState({
         email: '',
@@ -12,6 +14,7 @@ export default function LoginForm () {
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate()
+    const {setUser} = useAuth()
 
     const handleChange = (e) => {
         setFormData({
@@ -25,18 +28,20 @@ export default function LoginForm () {
 
 
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', formData, {
+            const response = await axios.post ('http://localhost:5000/api/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
             })
 
-            const data= response.data
+            const {user, token, message} = response.data
 
             if (response.status === 200) {
-                localStorage.setItem('userToken', data.token);
+                localStorage.setItem('userToken', token);
+
+                setUser(user)
                 toast({
-                    title: 'Login Successful',
+                    title: message,
                     status: 'success',
                     duration: 3000,
                     isClosable: true
@@ -57,7 +62,7 @@ export default function LoginForm () {
         } catch (error) {
             toast({
                 title: "Error",
-                description: error.response ? error.response.data.message : 'Network error, please try again',
+                description: error.response ? error.response.data.message : 'Login Failed',
                 status: 'error',
                 duration: 3000,
                 isClosable: true

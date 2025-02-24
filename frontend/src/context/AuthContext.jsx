@@ -1,6 +1,4 @@
-
 import React, { createContext, useContext, useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 
@@ -12,25 +10,21 @@ export function AuthProvider({ children }) {
     const navigate = useNavigate();
 
 
-
-
-    useEffect(() => {
-        // Check if user is logged in
-
+    const checkAuth = async () => {
         const token = localStorage.getItem('userToken')
         if (token) {
-        // Verify token
-            verifyToken(token)
-
+            await verifyToken(token)
         } else {
+            setUser(null)
             setLoading(false)
         }
+    }
+
+    useEffect(() => {
+        checkAuth()
+    }, [])
 
 
-
-
-
-    }, []);
 
     const verifyToken = async (token) => {
         try {
@@ -43,7 +37,6 @@ export function AuthProvider({ children }) {
             if (response.ok) {
                 const data =  await response.json()
                 setUser(data.user)
-
 
             } else {
                 localStorage.removeItem('userToken')
@@ -58,8 +51,12 @@ export function AuthProvider({ children }) {
         } finally {
             setLoading(false)
         }
-      
+    }
 
+    const login = async (token, userData) => {
+        console.log('UserData:', userData)
+        localStorage.setItem('userToken', token)
+        setUser(...userData)
     }
 
     const logout = () => {
@@ -69,8 +66,8 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, setUser, logout}}>
-            {children}
+        <AuthContext.Provider value={{ user, loading, setUser, logout, login, checkAuth}}>
+            {!loading && children}
         </AuthContext.Provider>
 
 

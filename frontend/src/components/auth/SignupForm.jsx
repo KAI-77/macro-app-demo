@@ -155,7 +155,6 @@ export default function SignupForm () {
                                     placeholder="Confirm your password"
                                 />
                             </FormControl>
-
                             <Button
                                 type="submit"
                                 colorScheme="blue"
@@ -164,6 +163,13 @@ export default function SignupForm () {
                             >
                                 Sign Up
                             </Button>
+                            <Text mt={0} fontSize="sm" className="text-gray-600" textAlign="center">
+                                Already have an account? {'  '}
+                                <ChakraLink as={Link} to="/login" color="blue.500" _hover={{ textDecoration: "underline" }}>
+                                    Login
+                                </ChakraLink>
+
+                            </Text>
                         </VStack>
                     </form>
                 </Box>

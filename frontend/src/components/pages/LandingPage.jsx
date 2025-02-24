@@ -15,12 +15,15 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaShieldAlt, FaRobot, FaCamera, FaChartBar } from "react-icons/fa";
 
+
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
+
 
 const Feature = ({ icon, title, description }) => {
     const bgColor = useColorModeValue('white', 'gray.800');
     const borderColor = useColorModeValue('gray.200', 'gray.700');
+
 
     return (
         <MotionBox
@@ -54,6 +57,7 @@ export default function LandingPage() {
     const textColor = useColorModeValue('gray.600', 'gray.300');
     const highlightColor = useColorModeValue('blue.500', 'blue.300');
 
+
     return (
         <Box bgGradient={bgGradient} minH="100vh">
             <Container maxW="container.xl" pt={20} pb={20}>
@@ -65,13 +69,14 @@ export default function LandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <VStack spacing={8} textAlign="center" mb={16}>
+                    <VStack spacing={8} textAlign="center" mb={16} mt={6}>
                         <Heading
-                            size="2xl"
+                            size="5xl"
                             bgGradient="linear(to-r, blue.400, purple.500)"
                             bgClip="text"
                             lineHeight="1.2"
-                            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                            fontSize={{ base: "6xl", md: "7xl", lg: "8xl" }}
+
                         >
                             VitaScan
                             <Text fontSize="2xl" color={textColor}>
@@ -93,24 +98,27 @@ export default function LandingPage() {
                             </Highlight>
                         </Text>
 
-                        <Button
-                            as={motion.button}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            size="lg"
-                            colorScheme="blue"
-                            fontSize="xl"
-                            h={14}
-                            px={8}
-                            onClick={() => navigate("/login")}
-                            bgGradient="linear(to-r, blue.400, purple.500)"
-                            _hover={{
-                                bgGradient: "linear(to-r, blue.500, purple.600)",
-                                boxShadow: "xl"
-                            }}
-                        >
-                            Get Started Now
-                        </Button>
+
+                            <Button
+                                as={motion.button}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                size="sm"
+                                borderRadius="full"
+                                colorScheme="blue"
+                                fontSize="md"
+                                h={12}
+                                px={8}
+                                onClick={() => navigate("/login")}
+                                bgGradient="linear(to-r, blue.400, purple.500)"
+                                _hover={{
+                                    bgGradient: "linear(to-r, blue.500, purple.600)",
+                                    boxShadow: "xl"
+                                }}
+                            >
+                                Get Started Now
+                            </Button>
+
                     </VStack>
 
                     {/* Features Grid */}
@@ -123,7 +131,7 @@ export default function LandingPage() {
                         <Feature
                             icon={FaCamera}
                             title="Smart Detection"
-                            description="Instantly analyze food items from your photos with advanced AI recognition"
+                            description="Instantly analyze food items from your camera"
                         />
                         <Feature
                             icon={FaChartBar}
@@ -154,22 +162,24 @@ export default function LandingPage() {
                             Discover Your Recipe's True Nutritional Value
                         </Heading>
                         <Text fontSize="lg" mb={6} color={textColor}>
-                            Join our community of food enthusiasts using AI-powered analysis to unlock the
-                            exact macros and nutritional content of any recipe. From calories to protein,
+                            Join the community of food enthusiasts using AI-powered analysis to unlock the
+                            macros and nutritional content of any recipe. From calories to protein,
                             get precise measurements instantly.
 
                         </Text>
-                        <Button
-                            colorScheme="blue"
-                            size="lg"
-                            onClick={() => navigate("/register")}
-                            _hover={{
-                                transform: "translateY(-2px)",
-                                boxShadow: "lg",
-                            }}
-                        >
-                            Start Your Journey
-                        </Button>
+
+                            <Button
+                                colorScheme="blue"
+                                size="lg"
+                                borderRadius="full"
+                                onClick={() => navigate("/register")}
+                                _hover={{
+                                    transform: "translateY(-2px)",
+                                    boxShadow: "lg",
+                                }}
+                            >
+                                Start Your Journey
+                            </Button>
                     </Box>
                 </MotionFlex>
             </Container>

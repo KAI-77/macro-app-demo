@@ -37,7 +37,7 @@ import {
     ModalCloseButton,
     ModalBody,
     SimpleGrid,
-    ModalFooter,
+    ModalFooter, CardFooter,
 } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -363,6 +363,25 @@ export default function ImageUpload() {
                             </Card>
                         )}
                     </CardBody>
+                    <CardFooter display="flex" justifyContent="center">
+                        <Box as="span" fontSize="xs" display="flex" alignItems="center">
+                            By uploading an image you agree to our{" "}
+                            <Link
+                                as={RouterLink}
+                                to="/terms"
+                                fontSize="xs"
+                                color="blue.400"
+                                _hover={{
+                                    color: "blue.500"
+
+                                }}
+                                ml={1}
+
+                            >
+                                Terms of Service
+                            </Link>
+                        </Box>
+                    </CardFooter>
                 </Card>
 
                 {/* Macros Modal */}
