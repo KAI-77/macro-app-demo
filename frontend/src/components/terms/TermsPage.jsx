@@ -23,11 +23,8 @@ export default function TermsPage () {
             <strong>3. Authentication</strong>: Authentication is used to prevent misuse and ensure fair access for all users.
           </Text>
           <Text>
-            <strong>4. Privacy</strong>: We value your privacy. Please read our{' '}
-            <Link href="/privacy" color="blue.500" _hover={{ textDecoration: 'underline' }}>
-              Privacy Policy
-            </Link>{' '}
-            to learn how your data is handled.
+            <strong>4. Privacy</strong>: We value your privacy. Please read our Privacy Policy in the main page of the app
+            to learn how your data is being handled.
           </Text>
           <Text>
             <strong>5. Limitation of Liability</strong>: We are not responsible for any damages or losses resulting from the use of our app.

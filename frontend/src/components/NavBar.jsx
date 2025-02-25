@@ -173,7 +173,7 @@ export default function NavBar() {
                             </Menu>
                 ) : (
                     <Link to="/login">
-                        <Button leftIcon={<HiOutlineArrowRightEndOnRectangle size={23}/>} variant="ghost" color={textColor} _hover={{ color: "blue.500" }}>
+                        <Button leftIcon={<HiOutlineArrowRightEndOnRectangle size={23}/>} variant="ghost" color={textColor} _hover={{ color: "blue.500" }} >
                             Login
                         </Button>
                     </Link>
@@ -260,7 +260,9 @@ export default function NavBar() {
 
                     </MotionVStack>
                 </DrawerBody>
-                <DrawerFooter>
+                <DrawerFooter
+                    justifyContent="flex-start"
+                >
                     { user ? (
                         <MotionButton variants={itemVariants} onClick={() => {
                             logout();

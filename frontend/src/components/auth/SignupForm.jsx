@@ -14,6 +14,7 @@ export default function SignupForm () {
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
     const navigate = useNavigate()
+    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         setFormData({
@@ -28,6 +29,7 @@ export default function SignupForm () {
             name: formData.name,
             email: formData.email,
             password: formData.password.length, // log length only for security
+
         });
 
         if (formData.password !== formData.confirmPassword) {
@@ -47,7 +49,8 @@ export default function SignupForm () {
         const registrationData = {
             name: formData.name.trim(),
             email: formData.email.trim().toLowerCase(),
-            password: formData.password
+            password: formData.password,
+            confirmPassword: formData.confirmPassword
         };
 
         try {
@@ -73,7 +76,15 @@ export default function SignupForm () {
         } catch (error) {
             console.error('Registration error:', error.response || error);
 
-            if (error.response) {
+            if (error.response && error.response.data.errors){
+                if (Array.isArray(error.response.data.errors)) {
+                    setErrors(error.response.data.errors.reduce((acc, err) => {
+                        acc[err.path] = err.msg; // Use 'path' instead of 'param'
+                        return acc;
+                    }, {}));
+                }
+            }
+            else if (error.response) {
                 const errorMessage = error.response.data.message;
                 toast({
                     title: 'Error',
@@ -119,8 +130,9 @@ export default function SignupForm () {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    placeholder="Enter your name"
+                                    placeholder="John Doe"
                                 />
+                                {errors.name && <Text color="red">{errors.name}</Text>}
                             </FormControl>
 
                             <FormControl isRequired>
@@ -130,8 +142,9 @@ export default function SignupForm () {
                                     type="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="Enter your email"
+                                    placeholder="johndoe@example.com"
                                 />
+                                {errors.email && <Text color="red">{errors.email}</Text>}
                             </FormControl>
 
                             <FormControl isRequired>
@@ -143,6 +156,7 @@ export default function SignupForm () {
                                     onChange={handleChange}
                                     placeholder="Enter your password"
                                 />
+                                {errors.password && <Text fontSize="xs" color="red">{errors.password}</Text>}
                             </FormControl>
 
                             <FormControl isRequired>
@@ -154,6 +168,7 @@ export default function SignupForm () {
                                     onChange={handleChange}
                                     placeholder="Confirm your password"
                                 />
+                                {errors.confirmPassword && <Text color="red">{errors.confirmPassword}</Text>}
                             </FormControl>
                             <Button
                                 type="submit"

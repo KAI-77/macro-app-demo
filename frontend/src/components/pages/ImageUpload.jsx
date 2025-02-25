@@ -263,7 +263,7 @@ export default function ImageUpload() {
                         <Heading size="lg" color={textColor}>Recipe Image Analysis</Heading>
                     </CardHeader>
                     <CardBody>
-                        <Tabs isFitted variant="enclosed">
+                        <Tabs isFitted variant="soft-rounded">
                             <TabList mb="1em">
                                 <Tab>Upload Image</Tab>
                                 <Tab>Take Photo</Tab>
@@ -390,7 +390,7 @@ export default function ImageUpload() {
                     <ModalContent bg={cardBg}>
                         <ModalHeader color={textColor}>Nutritional Information</ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody pb={6}>
+                        <ModalBody pb={8}>
                             <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
                                 <MacroCard
                                     label="Calories"
@@ -418,9 +418,6 @@ export default function ImageUpload() {
                                 />
                             </SimpleGrid>
                         </ModalBody>
-                        <ModalFooter>
-                            <Button onClick={() => setIsModalOpen(false)}>Close</Button>
-                        </ModalFooter>
                     </ModalContent>
                 </Modal>
             </VStack>

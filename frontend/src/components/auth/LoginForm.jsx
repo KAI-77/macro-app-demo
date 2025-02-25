@@ -10,7 +10,7 @@ export default function LoginForm () {
         email: '',
         password: ''
     });
-
+    const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate()
@@ -28,54 +28,77 @@ export default function LoginForm () {
 
 
         try {
-            const response = await axios.post ('http://localhost:5000/api/auth/login', formData, {
+            const response = await axios.post('http://localhost:5000/api/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            })
+            });
 
-            const {user, token, message} = response.data
+            const {user, token, message} = response.data;
 
             if (response.status === 200) {
                 localStorage.setItem('userToken', token);
 
-                setUser(user)
+                setUser(user);
                 toast({
-                    title: message,
+                    title: message || "Login successful",
                     status: 'success',
                     duration: 3000,
                     isClosable: true
-                })
-                navigate('/upload')
-            } else {
-            toast({
-                title: "Error",
-                description: error.response.data.message || 'Invalid credentials',
-                status: 'error',
-                duration: 3000,
-                isClosable: true
-            })    
-               
+                });
+                navigate('/upload');
             }
 
-            
         } catch (error) {
-            toast({
-                title: "Error",
-                description: error.response ? error.response.data.message : 'Login Failed',
-                status: 'error',
-                duration: 3000,
-                isClosable: true
-            })
-        } finally {
-            setIsLoading(false)
-        }
+            if (error.response) {
+                const status = error.response.status;
+                const message = error.response.data?.message || "Please try again later.";
 
+                if (status === 429) {
+                    // Handle too many requests
+                    toast({
+                        title: "Too Many Requests",
+                        description: message || "Please try again in 5 minutes.",
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true
+                    });
+                } else if (status === 401) {
+                    // Handle invalid credentials
+                    toast({
+                        title: "Invalid Credentials",
+                        description: message || "Please check your email and password.",
+                        status: 'error',
+                        duration: 3000,
+                        isClosable: true
+                    });
+                } else {
+                    // Handle other errors
+                    toast({
+                        title: "Error",
+                        description: message,
+                        status: 'error',
+                        duration: 3000,
+                        isClosable: true
+                    });
+                }
+            } else {
+                // Handle network or unknown error
+                toast({
+                    title: "Network Error",
+                    description: "Something went wrong. Please try again.",
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true
+                });
+            }
+        } finally {
+            setIsLoading(false);
+        }
 
     }
 
-
-    return (
+        return (
         <Container maxW= "container.sm" py={10}>
             <VStack spacing={8}>
             <Heading>Login to your account</Heading>
@@ -85,10 +108,12 @@ export default function LoginForm () {
                         <FormControl isRequired>
                             <FormLabel>Email</FormLabel>
                             <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"  />
+                            {errors.email && <Text color="red">{errors.email}</Text>}
                          </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Password</FormLabel>
                             <Input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" />
+                            {errors.password && <Text color="red">{errors.password}</Text>}
                         </FormControl>
                         <Button colorScheme= "blue" width="100%" type="submit" isLoading={isLoading}>
                             Login
