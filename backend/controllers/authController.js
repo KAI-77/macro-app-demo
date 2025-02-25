@@ -14,18 +14,11 @@ const generateToken = (id) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
 
-    // Check if all required fields are present
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    // Normalize email to lowercase and trim whitespace
-    const normalizedEmail = email.toLowerCase().trim();
 
     // Check if user exists (using normalized email)
-    const userExists = await User.findOne({ email: normalizedEmail });
+    const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(409).json({ message: "User already exists" });
     }
@@ -37,7 +30,7 @@ export const registerUser = async (req, res) => {
     // Create a user
     const user = await User.create({
       name,
-      email: normalizedEmail,  // Store normalized email
+      email,
       password: hashedPassword,
     });
 
@@ -66,10 +59,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  // Validate user input
-  if (!email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
 
   try {
     // Check for user email
