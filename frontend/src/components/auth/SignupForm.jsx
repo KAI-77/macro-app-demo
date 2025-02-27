@@ -32,16 +32,6 @@ export default function SignupForm () {
 
         });
 
-        if (formData.password !== formData.confirmPassword) {
-            toast({
-                title: 'Error',
-                description: 'Passwords do not match',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-            });
-            return;
-        }
 
         setIsLoading(true);
 
@@ -124,7 +114,7 @@ export default function SignupForm () {
                 <Box w="100%" p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
                     <form onSubmit={handleSubmit}>
                         <VStack spacing={4}>
-                            <FormControl isRequired>
+                            <FormControl>
                                 <FormLabel>Name</FormLabel>
                                 <Input
                                     name="name"
@@ -132,10 +122,10 @@ export default function SignupForm () {
                                     onChange={handleChange}
                                     placeholder="John Doe"
                                 />
-                                {errors.name && <Text color="red">{errors.name}</Text>}
+                                {errors.name && <Text fontSize='xs' color="red">{errors.name}</Text>}
                             </FormControl>
 
-                            <FormControl isRequired>
+                            <FormControl>
                                 <FormLabel>Email</FormLabel>
                                 <Input
                                     name="email"
@@ -144,10 +134,10 @@ export default function SignupForm () {
                                     onChange={handleChange}
                                     placeholder="johndoe@example.com"
                                 />
-                                {errors.email && <Text color="red">{errors.email}</Text>}
+                                {errors.email && <Text fontSize='xs' color="red">{errors.email}</Text>}
                             </FormControl>
 
-                            <FormControl isRequired>
+                            <FormControl>
                                 <FormLabel>Password</FormLabel>
                                 <Input
                                     name="password"
@@ -159,7 +149,7 @@ export default function SignupForm () {
                                 {errors.password && <Text fontSize="xs" color="red">{errors.password}</Text>}
                             </FormControl>
 
-                            <FormControl isRequired>
+                            <FormControl>
                                 <FormLabel>Confirm Password</FormLabel>
                                 <Input
                                     name="confirmPassword"
@@ -168,7 +158,7 @@ export default function SignupForm () {
                                     onChange={handleChange}
                                     placeholder="Confirm your password"
                                 />
-                                {errors.confirmPassword && <Text color="red">{errors.confirmPassword}</Text>}
+                                {errors.confirmPassword && <Text fontSize='xs' color="red">{errors.confirmPassword}</Text>}
                             </FormControl>
                             <Button
                                 type="submit"
