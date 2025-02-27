@@ -50,9 +50,16 @@ export default function LoginForm () {
             }
 
         } catch (error) {
-            if (error.response) {
+            if (error.response && error.response.data.errors) {
+                if (Array.isArray(error.response.data.errors)) {
+                    setErrors(error.response.data.errors.reduce((acc, err) => {
+                        acc[err.path] = err.msg;
+                        return acc;
+                    }, {}));
+                }
+
                 const status = error.response.status;
-                const message = error.response.data?.message || "Please try again later.";
+                const message = error.response.data?.message || "Invalid Credentials .";
 
                 if (status === 429) {
                     // Handle too many requests
@@ -105,15 +112,15 @@ export default function LoginForm () {
             <Box w="100%" p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4}>
-                        <FormControl isRequired>
+                        <FormControl>
                             <FormLabel>Email</FormLabel>
                             <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"  />
-                            {errors.email && <Text color="red">{errors.email}</Text>}
+                            {errors.email && <Text fontSize='xs' color="red">{errors.email}</Text>}
                          </FormControl>
-                        <FormControl isRequired>
+                        <FormControl>
                             <FormLabel>Password</FormLabel>
                             <Input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" />
-                            {errors.password && <Text color="red">{errors.password}</Text>}
+                            {errors.password && <Text fontSize='xs' color="red">{errors.password}</Text>}
                         </FormControl>
                         <Button colorScheme= "blue" width="100%" type="submit" isLoading={isLoading}>
                             Login
