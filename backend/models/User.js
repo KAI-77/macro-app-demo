@@ -19,9 +19,14 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
       minlength: 6,
+      validate: {
+          validator: function(value) {
+            return this.provider !== "google" || (this.provider === "google" && value)
+          }
+      }
     },
+      provider: { type: String, default: 'google'}
   },
   {
     timestamps: true,
