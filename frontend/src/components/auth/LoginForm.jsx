@@ -27,10 +27,7 @@ export default function LoginForm () {
 
         if (token && id) {
             login(token, {id})
-            // localStorage.setItem('userToken', token);
-            // localStorage.setItem('userId', id);
-            //
-            // setUser({ token, id });
+
             toast({
                 title: "Google login successful!",
                 status: 'success',
@@ -158,8 +155,8 @@ export default function LoginForm () {
                         <Button colorScheme= "blue" width="100%" type="submit" isLoading={isLoading}>
                             Login
                         </Button>
-                        <Button leftIcon={<FcGoogle />}
-                        colorScheme="blue" width="50%" className="px-6 py-3 font-semibold"
+                        <Button leftIcon={<FcGoogle size={20}/>}
+                        colorScheme="blue" width="40%" className="px-6 py-3"
                                 onClick={handleGoogleLogin}
                                 isLoading={isGoogleLoading}
                         >

@@ -10,6 +10,18 @@ export function AuthProvider({ children }) {
     const navigate = useNavigate();
 
 
+    const standardizeUserData = (userData) => {
+        return {
+            id: userData.id || userData._id || userData.googleId,
+            name: userData.name || userData.displayName,
+            email: userData.email,
+            // Add any other fields you want to standardize
+            avatar: userData.avatar || userData.picture, // For Google auth profile picture
+            provider: userData.provider || 'local' // 'local' for regular auth, 'google' for Google auth
+        };
+    };
+
+
     const checkAuth = async () => {
         const token = localStorage.getItem('userToken')
         if (token) {
@@ -36,7 +48,7 @@ export function AuthProvider({ children }) {
             })
             if (response.ok) {
                 const data =  await response.json()
-                setUser(data.user)
+                setUser(standardizeUserData(data.user))
 
             } else {
                 localStorage.removeItem('userToken')
@@ -56,7 +68,7 @@ export function AuthProvider({ children }) {
     const login = async (token, userData) => {
         console.log('UserData:', userData)
         localStorage.setItem('userToken', token)
-        setUser(userData)
+        setUser(standardizeUserData(userData))
     }
 
     const logout = () => {
