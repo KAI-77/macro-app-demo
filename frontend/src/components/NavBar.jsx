@@ -75,7 +75,7 @@ export default function NavBar() {
     const borderColor = useColorModeValue("gray.200", "#27272A");
     const navigate = useNavigate();
     const toast = useToast();
-    const {user, logout} = useAuth();
+    const {user, logout, login} = useAuth();
     const bgGradient = useColorModeValue(
         'linear(to-b, blue.50, white)',
         'linear(to-b, gray.900, gray.800)'

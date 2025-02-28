@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
     const login = async (token, userData) => {
         console.log('UserData:', userData)
         localStorage.setItem('userToken', token)
-        setUser(...userData)
+        setUser(userData)
     }
 
     const logout = () => {

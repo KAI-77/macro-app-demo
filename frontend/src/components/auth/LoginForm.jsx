@@ -1,9 +1,10 @@
 import { FormControl, Heading, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { VStack, Container, Box, FormLabel, Button, Input, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "../../context/AuthContext"
+import {FcGoogle} from "react-icons/fc";
 
 export default function LoginForm () {
     const [formData, setFormData] = useState({
@@ -14,7 +15,33 @@ export default function LoginForm () {
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate()
-    const {setUser} = useAuth()
+    const [isGoogleLoading, setIsGoogleLoading] = useState(false)
+    const {setUser, login} = useAuth()
+
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const id = params.get('id');
+
+
+        if (token && id) {
+            login(token, {id})
+            // localStorage.setItem('userToken', token);
+            // localStorage.setItem('userId', id);
+            //
+            // setUser({ token, id });
+            toast({
+                title: "Google login successful!",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
+
+            // Clear token from URL and navigate to upload page
+            navigate('/upload', { replace: true });
+        }
+    }, [navigate, setUser, toast]);
 
     const handleChange = (e) => {
         setFormData({
@@ -25,6 +52,7 @@ export default function LoginForm () {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
+
 
 
         try {
@@ -105,7 +133,12 @@ export default function LoginForm () {
 
     }
 
-        return (
+    const handleGoogleLogin = () => {
+        setIsGoogleLoading(true);
+        window.location.href = "http://localhost:5000/auth/google";
+    }
+
+    return (
         <Container maxW= "container.sm" py={10}>
             <VStack spacing={8}>
             <Heading>Login to your account</Heading>
@@ -124,6 +157,13 @@ export default function LoginForm () {
                         </FormControl>
                         <Button colorScheme= "blue" width="100%" type="submit" isLoading={isLoading}>
                             Login
+                        </Button>
+                        <Button leftIcon={<FcGoogle />}
+                        colorScheme="blue" width="50%" className="px-6 py-3 font-semibold"
+                                onClick={handleGoogleLogin}
+                                isLoading={isGoogleLoading}
+                        >
+                            Sign in with Google
                         </Button>
                     </VStack>
                 </form>
