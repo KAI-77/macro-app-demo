@@ -5,8 +5,9 @@ import User from "../models/User.js";
 // Generate jwt token
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: id, sub: id.toString(), role: 'authenticated', aud: 'authenticated' }, process.env.JWT_SECRET, {
     expiresIn: "1d",
+    algorithm: 'HS256'
   });
 };
 
@@ -74,9 +75,11 @@ export const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    //   expiresIn: "1h",
+    // });
+    const token = generateToken(user._id)
+
     res.status(200).json({ user: {
       id: user._id, email: user.email, name: user.name
       },
