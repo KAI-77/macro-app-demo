@@ -272,7 +272,7 @@ export default function NavBar() {
                         </MotionButton>
                     ) : (
                         <Link to="/login" onClick={onClose}>
-                            <MotionButton variants={itemVariants} leftIcon={<FaExpeditedssl />} variant="ghost" color={textColor} _hover={{ color: "blue.500" }} w="full" justifyContent="flex-start">
+                            <MotionButton variants={itemVariants} leftIcon={<HiOutlineArrowRightEndOnRectangle size={23}/>} variant="ghost" color={textColor} _hover={{ color: "blue.500" }} w="full" justifyContent="flex-start">
                                 Login
                             </MotionButton>
                         </Link>

@@ -156,7 +156,7 @@ export default function LoginForm () {
                             Login
                         </Button>
                         <Button leftIcon={<FcGoogle size={20}/>}
-                        colorScheme="blue" width="40%" className="px-6 py-3"
+                        colorScheme="blue" width="100%" className="px-6 py-3"
                                 onClick={handleGoogleLogin}
                                 isLoading={isGoogleLoading}
                         >
@@ -167,7 +167,7 @@ export default function LoginForm () {
                         <Text mt={6} fontSize="sm" className="text-gray-600" textAlign="center">
                             Don't have an account? {'  '}
                         <ChakraLink as={Link} to="/register" color="blue.500" _hover={{ textDecoration: "underline" }}>
-                            Sign up
+                            Create an account
                         </ChakraLink>
 
                         </Text>
@@ -176,7 +176,7 @@ export default function LoginForm () {
                             By using this app, you agree to the{'  '}
                         <ChakraLink as={Link} to="/terms" color="blue.500" _hover={{ textDecoration: "underline"}}>
                                 Terms and Conditions
-                            </ChakraLink>    
+                            </ChakraLink>
                         </Text>
             </Box>
             </VStack>
