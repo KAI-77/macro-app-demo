@@ -1,10 +1,11 @@
-import { FormControl, Heading, useToast } from "@chakra-ui/react";
+import {FormControl, Heading, IconButton, InputGroup, InputRightElement, useToast} from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import { VStack, Container, Box, FormLabel, Button, Input, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "../../context/AuthContext"
 import {FcGoogle} from "react-icons/fc";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function LoginForm () {
     const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function LoginForm () {
     const navigate = useNavigate()
     const [isGoogleLoading, setIsGoogleLoading] = useState(false)
     const {setUser, login} = useAuth()
-
+    const [showPassword, setShowPassword] = useState(false)
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -149,7 +150,17 @@ export default function LoginForm () {
                          </FormControl>
                         <FormControl>
                             <FormLabel>Password</FormLabel>
-                            <Input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" />
+                            <InputGroup>
+                            <Input name="password" type={showPassword ? "text" : "password"} value={formData.password} onChange={handleChange} placeholder="Enter your password" />
+                            <InputRightElement>
+                                <IconButton aria-label={showPassword ? "Hide Password" : "Show Password"}
+                                icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                                onClick={(e) => { e.preventDefault()
+                                    setShowPassword((prev) => !prev)}}
+                                variant="ghost"
+                                />
+                            </InputRightElement>
+                            </InputGroup>
                             {errors.password && <Text fontSize='xs' color="red">{errors.password}</Text>}
                         </FormControl>
                         <Button colorScheme= "blue" width="100%" type="submit" isLoading={isLoading}>
