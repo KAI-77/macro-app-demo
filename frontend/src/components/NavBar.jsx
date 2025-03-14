@@ -96,7 +96,7 @@ export default function NavBar() {
 
         >
             <Container maxW="7xl" px={{ base: 4, sm: 6, lg: 8 }}>
-                <Flex justify="space-between" h="16" align="center">
+                <Flex justify="space-between" h="14" align="center">
                     {/* Logo and Brand */}
                     <Flex align="center">
                         <Link to="/upload">
@@ -129,14 +129,14 @@ export default function NavBar() {
                             </Link>
                         )}
                         {!user && (
-                            <Link to="/info">
+                            <Link to="/privacy">
                                 <Button
                                     leftIcon={<HiOutlineBookOpen size={23} />}
                                     variant="ghost"
                                     color={textColor}
                                     _hover={{ color: "blue.500" }}
                                 >
-                                    Guide
+                                    Privacy Policy
                                 </Button>
                             </Link>
                         )}
@@ -232,7 +232,7 @@ export default function NavBar() {
                             </Link>
                         )}
                         {!user && (
-                            <Link to="/info" onClick={onClose}>
+                            <Link to="/privacy" onClick={onClose}>
                                 <MotionButton
                                     variants={itemVariants}
                                     leftIcon={<FaInfoCircle />}
@@ -240,7 +240,7 @@ export default function NavBar() {
                                     w="full"
                                     justifyContent="flex-start"
                                 >
-                                    Guide
+                                    Privacy Policy
                                 </MotionButton>
                             </Link>
                         )}
