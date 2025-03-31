@@ -208,7 +208,7 @@ export default function SignupForm() {
                     _hover={{ borderColor: "gray.300" }}
                     _focus={{
                       borderColor: "blue.400",
-                      bg: "white",
+                      bg: boxBg,
                       boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                     }}
                     transition="all 0.2s"
@@ -248,7 +248,7 @@ export default function SignupForm() {
                     _hover={{ borderColor: "gray.300" }}
                     _focus={{
                       borderColor: "blue.400",
-                      bg: "white",
+                      bg: boxBg,
                       boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                     }}
                     transition="all 0.2s"
@@ -289,7 +289,7 @@ export default function SignupForm() {
                       _hover={{ borderColor: "gray.300" }}
                       _focus={{
                         borderColor: "blue.400",
-                        bg: "white",
+                        bg: boxBg,
                         boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                       }}
                       transition="all 0.2s"
@@ -347,7 +347,7 @@ export default function SignupForm() {
                       _hover={{ borderColor: "gray.300" }}
                       _focus={{
                         borderColor: "blue.400",
-                        bg: "white",
+                        bg: boxBg,
                         boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                       }}
                       transition="all 0.2s"

@@ -326,6 +326,21 @@ export default function LoginForm() {
                       {errors.password}
                     </Text>
                   )}
+                  <Box textAlign="right" mt={2}>
+                    <ChakraLink
+                      as={Link}
+                      to="/forgot-password"
+                      color="blue.500"
+                      fontSize="xs"
+                      fontWeight="small"
+                      _hover={{
+                        color: "blue.600",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Forgot Password?
+                    </ChakraLink>
+                  </Box>
                 </FormControl>
 
                 <Button
