@@ -6,12 +6,12 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Please add a name"],
-        trim: true,
+      trim: true,
     },
     email: {
       type: String,
       required: [true, "Please add an email"],
-        trim: true,
+      trim: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please add a valid email",
@@ -21,19 +21,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       minlength: 6,
       validate: {
-          validator: function(value) {
-            return this.provider !== "google" || (this.provider === "google" && value)
-          }
-      }
+        validator: function (value) {
+          return (
+            this.provider !== "google" || (this.provider === "google" && value)
+          );
+        },
+      },
     },
-      provider: { type: String, default: 'google'}
+    provider: { type: String, default: "local" },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   {
     timestamps: true,
   }
 );
 
-userSchema.index({ email: 1 }, { unique: true, collation: { locale: "en", strength: 2       } });
+userSchema.index(
+  { email: 1 },
+  { unique: true, collation: { locale: "en", strength: 2 } }
+);
 
 // Export the model
 const User = mongoose.model("User", userSchema);
