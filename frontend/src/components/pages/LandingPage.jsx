@@ -155,7 +155,8 @@ export default function LandingPage() {
                         mt={20}
                         p={8}
                         borderRadius="2xl"
-                        bg={useColorModeValue('blue.50', 'gray.700')}
+
+                        bg={useColorModeValue('blue.50', 'gray.800')}
                         textAlign="center"
                     >
                         <Heading size="lg" mb={4}>
@@ -172,13 +173,13 @@ export default function LandingPage() {
                                 colorScheme="blue"
                                 size="lg"
                                 borderRadius="full"
-                                onClick={() => navigate("/register")}
+                                onClick={() => navigate("/info")}
                                 _hover={{
                                     transform: "translateY(-2px)",
                                     boxShadow: "lg",
                                 }}
                             >
-                                Start Your Journey
+                                Application Guide
                             </Button>
                     </Box>
                 </MotionFlex>

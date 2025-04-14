@@ -109,7 +109,7 @@ export const analyzeImage = async (req, res) => {
 
       PROCEDURE:
         1. (list each step)
-      Do NOT mention image limitations. Just assume and generate the best possible recipe.`,
+      Do NOT mention image limitations. Just assume and generate the best possible recipe. Do NOT include phrases like "Here’s my analysis" or any introductory lines — start directly with the "INGREDIENTS" section.`,
       imagePart,
     ]);
 

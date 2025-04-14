@@ -17,7 +17,7 @@ export default function TermsPage () {
             <strong>1. Acceptance of Terms</strong>: By using this app, you agree to be bound by these Terms. If you do not agree, please do not use the app.
           </Text>
           <Text>
-            <strong>2. Usage Rules</strong>: You are responsible for the content you upload and agree not to upload content that is unlawful, harmful, or violates the rights of others. You are limited to [X] uploads unless additional permissions are granted.
+            <strong>2. Usage Rules</strong>: You are responsible for the content you upload and agree not to upload content that is unlawful, harmful, or violates the rights of others.
           </Text>
           <Text>
             <strong>3. Authentication</strong>: Authentication is used to prevent misuse and ensure fair access for all users.
