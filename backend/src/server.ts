@@ -6,6 +6,11 @@ import analyzeRoutes from "./routes/analyze";
 import auth from "./routes/auth";
 import recipeRoutes from "./routes/recipe";
 import { globalLimiter, speedLimiter, authLimiter } from "./utils/api";
+import {
+  googleAuthCallBack,
+  googleLogin,
+} from "./controllers/googleController";
+import { securityConfig } from "./utils/helmet";
 
 dotenv.config();
 
@@ -18,6 +23,7 @@ app.use(express.json({ limit: "25mb" }));
 app.use(express.static("public"));
 app.use(speedLimiter);
 app.use(globalLimiter);
+app.use(securityConfig);
 
 // Connect to the database
 connectDB();
@@ -27,7 +33,8 @@ app.use("/api/auth/login", authLimiter);
 app.use("/api/auth/register", authLimiter);
 
 app.use("/api/auth", auth);
-
+app.use("/google/callback", googleAuthCallBack);
+app.use("/auth/google", googleLogin);
 app.use("/api", analyzeRoutes);
 app.use("/api", recipeRoutes);
 

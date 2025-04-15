@@ -9,6 +9,11 @@ export interface User {
   provider: string;
 }
 
+export interface GoogleUserInfo {
+  email: string;
+  name: string;
+}
+
 export interface UploadedFile {
   buffer: Buffer;
   originalname: string;

@@ -39,7 +39,7 @@ export const validateRegistration = [
     .notEmpty()
     .withMessage("Confirm Password is required")
     .bail()
-    .custom((value, { req }) => value === req.body.password)
+    .custom((value: string, { req }) => value === req.body.password)
     .withMessage("Passwords do not match"),
 ];
 
