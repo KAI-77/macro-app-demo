@@ -9,7 +9,6 @@ import User from "../models/User";
 
 dotenv.config();
 
-
 const GOOGLE_OAUTH_URL = process.env.GOOGLE_OAUTH_URL;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;

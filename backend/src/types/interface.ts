@@ -6,12 +6,28 @@ export interface User {
   name: string;
   email: string;
   password: string;
+  confirmPassword?: string;
   provider: string;
+  resetPasswordToken?: string;
+  resetPasswordExpire?: Date;
 }
 
 export interface GoogleUserInfo {
   email: string;
   name: string;
+}
+
+export interface GithubUserInfo {
+  username: string;
+  email: string;
+  name: string;
+}
+
+export interface GithubEmail {
+  email: string;
+  primary: boolean;
+  verified: boolean;
+  visibility: string | null;
 }
 
 export interface UploadedFile {
@@ -71,4 +87,13 @@ export interface TokenPayloadData {
   sub: string;
   role: string;
   aud: string;
+}
+
+export interface ForgotPasswordRequest extends Request {
+  email: string;
+}
+
+export interface ResetPasswordRequest extends Request {
+  password: string;
+  confirmPassword: string;
 }

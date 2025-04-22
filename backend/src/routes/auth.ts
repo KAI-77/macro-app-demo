@@ -1,10 +1,16 @@
-import express, { Request, Response } from "express";
-import { registerUser, loginUser } from "../controllers/authController";
+import express, { Request, RequestHandler, Response } from "express";
+import {
+  registerUser,
+  loginUser,
+  forgotPassword,
+  resetPassword,
+} from "../controllers/authController";
 import protect from "../middleware/authMiddleware";
 import {
   handleValidationErrors,
   validateLogin,
   validateRegistration,
+  validateResetPassword,
 } from "../middleware/validators";
 import { AuthenticatedRequest } from "../types/interface";
 
@@ -12,15 +18,18 @@ const router = express.Router();
 
 router.post(
   "/register",
-  validateRegistration as any,
-  handleValidationErrors as any,
+  validateRegistration,
+  handleValidationErrors,
   registerUser as any
 );
+router.post("/login", validateLogin, handleValidationErrors, loginUser as any);
+router.post("/forgot-password", forgotPassword as any);
 router.post(
-  "/login",
-  validateLogin as any,
-  handleValidationErrors as any,
-  loginUser as any
+  "/reset-password/:token",
+  validateResetPassword,
+  handleValidationErrors,
+  handleValidationErrors,
+  resetPassword as any
 );
 
 router.get("/verify", protect as any, async (req: Request, res: Response) => {

@@ -11,6 +11,10 @@ import {
   googleLogin,
 } from "./controllers/googleController";
 import { securityConfig } from "./utils/helmet";
+import {
+  githubAuthCallback,
+  githubLogin,
+} from "./controllers/githubController";
 
 dotenv.config();
 
@@ -35,6 +39,8 @@ app.use("/api/auth/register", authLimiter);
 app.use("/api/auth", auth);
 app.use("/google/callback", googleAuthCallBack);
 app.use("/auth/google", googleLogin);
+app.use("/auth/github", githubLogin);
+app.use("/github/callback", githubAuthCallback);
 app.use("/api", analyzeRoutes);
 app.use("/api", recipeRoutes);
 
