@@ -23,6 +23,7 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { FcGoogle } from "react-icons/fc";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FaGithub } from "react-icons/fa";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ export default function LoginForm() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { setUser, login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [isGithubLoading, setIsGithubLoading] = useState(false);
 
   const bgGradient = useColorModeValue(
     "linear(to-br, gray.50, blue.50)",
@@ -56,7 +58,7 @@ export default function LoginForm() {
       login(token, { id });
 
       toast({
-        title: "Google login successful!",
+        title: "OAuth login successful!",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -174,6 +176,11 @@ export default function LoginForm() {
   const handleGoogleLogin = () => {
     setIsGoogleLoading(true);
     window.location.href = "http://localhost:5000/auth/google";
+  };
+
+  const handleGithubLogin = () => {
+    setIsGithubLoading(true);
+    window.location.href = "http://localhost:5000/auth/github";
   };
 
   return (
@@ -408,6 +415,36 @@ export default function LoginForm() {
                   transition="all 0.2s cubic-bezier(0.08, 0.52, 0.52, 1)"
                 >
                   Sign in with Google
+                </Button>
+                <Button
+                  leftIcon={<FaGithub size={20} />}
+                  variant="outline"
+                  width="100%"
+                  onClick={handleGithubLogin}
+                  isLoading={isGithubLoading}
+                  size="lg"
+                  h="50px"
+                  fontWeight="medium"
+                  fontSize="md"
+                  borderRadius="lg"
+                  borderWidth="2px"
+                  borderColor={borderColor}
+                  color={labelColor}
+                  bg={boxBg}
+                  _hover={{
+                    bg: inputBg,
+                    borderColor: useColorModeValue("gray.300", "gray.500"),
+                    transform: "translateY(-2px)",
+                    boxShadow:
+                      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                  }}
+                  _active={{
+                    bg: "gray.100",
+                    transform: "translateY(0)",
+                  }}
+                  transition="all 0.2s cubic-bezier(0.08, 0.52, 0.52, 1)"
+                >
+                  Sign in with Github
                 </Button>
               </VStack>
             </form>
