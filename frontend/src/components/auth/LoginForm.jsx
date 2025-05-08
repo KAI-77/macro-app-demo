@@ -55,6 +55,7 @@ export default function LoginForm() {
     const id = params.get("id");
 
     if (token && id) {
+      console.log("OAuth Success");
       login(token, { id });
 
       toast({
