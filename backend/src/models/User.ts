@@ -31,7 +31,7 @@ const userSchema = new Schema<User>(
         },
       },
     },
-    provider: { type: String, enum: ["google", "github"], default: "local" },
+    provider: { type: String, enum: ["local", "google", "github"], default: "local" },
     confirmPassword: { type: String },
     resetPasswordToken: { type: String },
     resetPasswordExpire: { type: Date },

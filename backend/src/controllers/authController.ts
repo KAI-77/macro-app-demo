@@ -153,14 +153,33 @@ export const forgotPassword = async (
     const message = {
       from: process.env.EMAIL_FROM,
       to: user.email,
-      subject: "Password Reset Request",
+      subject: "Password Reset - VitaScan",
       html: `
-        <h1>You requested a password reset</h1>
-        <p>Please click on the following link to reset your password:</p>
-        <a href="${resetUrl}">Reset Password</a>
-        <p>If you didn't request this, please change your password immediately.</p>
-        <p>This link will expire in 5 minutes.</p>
-      `,
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1 style="color: #3182CE; text-align: center;">Reset Your Password</h1>
+          <p>Hello ${user.name},</p>
+          <p>You recently requested to reset your password for your VitaScan account. Click the button below to reset it:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" 
+               style="background-color: #3182CE; 
+                      color: white; 
+                      padding: 12px 24px; 
+                      text-decoration: none; 
+                      border-radius: 5px;
+                      display: inline-block;">
+              Reset Password
+            </a>
+          </div>
+          <p style="color: #718096; font-size: 14px;">
+            This link will expire in 10 minutes for security reasons.
+            If you didn't request this reset, please ignore this email.
+          </p>
+          <hr style="border: 1px solid #E2E8F0; margin: 20px 0;">
+          <p style="color: #718096; font-size: 12px; text-align: center;">
+            © 2025 VitaScan. All rights reserved.
+          </p>
+        </div>
+      `
     };
 
     await transporter.sendMail(message);
@@ -168,6 +187,7 @@ export const forgotPassword = async (
     return res.status(200).json({
       success: true,
       message: "Password reset email sent",
+      expiresIn: "10 minutes",
     });
   } catch (error) {
     console.error("Forgot password error:", error);
