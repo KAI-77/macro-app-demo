@@ -56,7 +56,6 @@ export const githubAuthCallback = async (req: Request, res: Response) => {
       user = await User.create({ email, name, provider: "github" });
     }
     console.log("User created:", user);
-    res.status(400).json({ message: "User already exists" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
       expiresIn: "1h",
@@ -66,8 +65,6 @@ export const githubAuthCallback = async (req: Request, res: Response) => {
     );
   } catch (error) {
     console.error("Github auth error:", error);
-    res.redirect(
-      `${process.env.FRONTEND_URL}/login?error=Authentication failed`
-    );
+    res.status(500).json({ error: "Github Authentication failed" });
   }
 };

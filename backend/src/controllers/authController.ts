@@ -70,10 +70,7 @@ export const registerUser = async (
 
     // More specific error handling
     if (
-      error &&
-      typeof error === "object" &&
-      "code" in error &&
-      error.code === 11000
+      error instanceof Error && 'code' in error && (error as any).code === 11000
     ) {
       // MongoDB duplicate key error
       return res.status(409).json({ message: "User already exists" });

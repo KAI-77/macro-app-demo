@@ -7,7 +7,7 @@ export interface User {
   email: string;
   password: string;
   confirmPassword?: string;
-  provider: string;
+  provider: "local" | "google" | "github";
   resetPasswordToken?: string;
   resetPasswordExpire?: Date;
 }

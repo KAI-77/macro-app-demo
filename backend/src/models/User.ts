@@ -26,6 +26,7 @@ const userSchema = new Schema<User>(
         validator: function (value) {
           return (
             this.provider !== "google" || (this.provider === "google" && value)
+            
           );
         },
       },
