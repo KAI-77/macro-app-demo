@@ -6,10 +6,7 @@ import analyzeRoutes from "./routes/analyze";
 import auth from "./routes/auth";
 import recipeRoutes from "./routes/recipe";
 import { globalLimiter, speedLimiter, authLimiter } from "./utils/api";
-import {
-  googleAuthCallBack,
-  googleLogin,
-} from "./controllers/googleController";
+
 import { securityConfig } from "./utils/helmet";
 import {
   githubAuthCallback,
@@ -37,8 +34,7 @@ app.use("/api/auth/login", authLimiter);
 app.use("/api/auth/register", authLimiter);
 
 app.use("/api/auth", auth);
-app.use("/google/callback", googleAuthCallBack);
-app.use("/auth/google", googleLogin);
+
 app.use("/auth/github", githubLogin);
 app.use("/github/callback", githubAuthCallback);
 app.use("/api", analyzeRoutes);

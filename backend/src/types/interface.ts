@@ -7,14 +7,9 @@ export interface User {
   email: string;
   password: string;
   confirmPassword?: string;
-  provider: "local" | "google" | "github";
+  provider: "local" | "github";
   resetPasswordToken?: string;
   resetPasswordExpire?: Date;
-}
-
-export interface GoogleUserInfo {
-  email: string;
-  name: string;
 }
 
 export interface GithubUserInfo {

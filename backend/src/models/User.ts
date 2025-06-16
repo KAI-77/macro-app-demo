@@ -22,16 +22,11 @@ const userSchema = new Schema<User>(
     password: {
       type: String,
       minlength: 6,
-      validate: {
-        validator: function (value) {
-          return (
-            this.provider !== "google" || (this.provider === "google" && value)
-            
-          );
-        },
+      required: function () {
+        return this.provider === "local"; // Only require password for local users
       },
     },
-    provider: { type: String, enum: ["local", "google", "github"], default: "local" },
+    provider: { type: String, enum: ["local", "github"], default: "local" },
     confirmPassword: { type: String },
     resetPasswordToken: { type: String },
     resetPasswordExpire: { type: Date },
