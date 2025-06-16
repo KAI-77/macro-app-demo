@@ -8,7 +8,7 @@ export default defineConfig({
     watch: {
       usePolling: true,
       proxy: {
-        "/analyze": "http://localhost:5000",
+        "/analyze": "https://vitascan-backend.onrender.com",
       },
     },
   },
