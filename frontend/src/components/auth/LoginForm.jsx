@@ -176,7 +176,12 @@ export default function LoginForm() {
 
   const handleGithubLogin = () => {
     setIsGithubLoading(true);
-    window.location.href = "https://vitascan-backend.onrender.com/auth/github";
+
+    const BACKEND_URL = import.meta.env.PROD
+      ? "https://vitascan-backend.onrender.com"
+      : "http://localhost:5000";
+
+    window.location.href = `${BACKEND_URL}/auth/github`;
   };
 
   return (

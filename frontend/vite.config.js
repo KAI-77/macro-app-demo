@@ -7,9 +7,13 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true,
-      proxy: {
-        "/analyze": "https://vitascan-backend.onrender.com",
-      },
+      proxy:
+        process.env.NODE_ENV === "development"
+          ? {
+              "/api": "http://localhost:5000",
+              "/auth": "http://localhost:5000",
+            }
+          : undefined,
     },
   },
 });
