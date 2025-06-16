@@ -25,7 +25,7 @@ export default function ForgotPasswordForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/forgot-password",
+        "https://vitascan-backend.onrender.com/api/auth/forgot-password",
         { email }
       );
 

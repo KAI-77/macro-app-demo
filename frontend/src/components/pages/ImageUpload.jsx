@@ -203,7 +203,7 @@ export default function ImageUpload() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/analyze",
+        "https://vitascan-backend.onrender.com/api/analyze",
         formData,
         {
           headers: {
@@ -235,7 +235,7 @@ export default function ImageUpload() {
     try {
       const ingredients = extractIngredients(analysis);
       const response = await axios.post(
-        "http://localhost:5000/api/recipe",
+        "https://vitascan-backend.onrender.com/api/recipe",
         { ingredients },
         {
           headers: {

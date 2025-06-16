@@ -83,7 +83,7 @@ export default function LoginForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://vitascan-backend.onrender.com/api/auth/login",
         formData,
         {
           headers: {
@@ -176,7 +176,7 @@ export default function LoginForm() {
 
   const handleGithubLogin = () => {
     setIsGithubLoading(true);
-    window.location.href = "http://localhost:5000/auth/github";
+    window.location.href = "https://vitascan-backend.onrender.com/auth/github";
   };
 
   return (

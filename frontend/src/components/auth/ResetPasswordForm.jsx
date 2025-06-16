@@ -62,7 +62,7 @@ export default function ResetPasswordForm() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/auth/reset-password/${token}`,
+        `https://vitascan-backend.onrender.com/api/auth/reset-password/${token}`,
         formData,
         {
           headers: {
