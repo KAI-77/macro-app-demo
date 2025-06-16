@@ -18,13 +18,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ["http://localhost:5173", "vitascan.vercel.app"];
+const allowedOrigins = ["http://localhost:5173", "https://vitascan.vercel.app"];
 
 // Middleware
 app.use(
   cors({
     origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "25mb" }));
