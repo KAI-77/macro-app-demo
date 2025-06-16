@@ -21,8 +21,9 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
-import { FcGoogle } from "react-icons/fc";
+
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FaGithub } from "react-icons/fa";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ export default function LoginForm() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { setUser, login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [isGithubLoading, setIsGithubLoading] = useState(false);
 
   const bgGradient = useColorModeValue(
     "linear(to-br, gray.50, blue.50)",
@@ -53,10 +55,11 @@ export default function LoginForm() {
     const id = params.get("id");
 
     if (token && id) {
+      console.log("OAuth Success");
       login(token, { id });
 
       toast({
-        title: "Google login successful!",
+        title: "OAuth login successful!",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -171,9 +174,9 @@ export default function LoginForm() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    setIsGoogleLoading(true);
-    window.location.href = "http://localhost:5000/auth/google";
+  const handleGithubLogin = () => {
+    setIsGithubLoading(true);
+    window.location.href = "http://localhost:5000/auth/github";
   };
 
   return (
@@ -326,6 +329,21 @@ export default function LoginForm() {
                       {errors.password}
                     </Text>
                   )}
+                  <Box textAlign="right" mt={2}>
+                    <ChakraLink
+                      as={Link}
+                      to="/forgot-password"
+                      color="blue.500"
+                      fontSize="xs"
+                      fontWeight="small"
+                      _hover={{
+                        color: "blue.600",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Forgot Password?
+                    </ChakraLink>
+                  </Box>
                 </FormControl>
 
                 <Button
@@ -365,11 +383,11 @@ export default function LoginForm() {
                 </Text>
 
                 <Button
-                  leftIcon={<FcGoogle size={20} />}
+                  leftIcon={<FaGithub size={20} />}
                   variant="outline"
                   width="100%"
-                  onClick={handleGoogleLogin}
-                  isLoading={isGoogleLoading}
+                  onClick={handleGithubLogin}
+                  isLoading={isGithubLoading}
                   size="lg"
                   h="50px"
                   fontWeight="medium"
@@ -392,7 +410,7 @@ export default function LoginForm() {
                   }}
                   transition="all 0.2s cubic-bezier(0.08, 0.52, 0.52, 1)"
                 >
-                  Sign in with Google
+                  Sign in with Github
                 </Button>
               </VStack>
             </form>

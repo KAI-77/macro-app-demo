@@ -88,41 +88,57 @@ export default function SignupForm() {
     } catch (error) {
       console.error("Registration error:", error.response || error);
 
-      if (error.response && error.response.data.errors) {
-        if (Array.isArray(error.response.data.errors)) {
-          setErrors(
-            error.response.data.errors.reduce((acc, err) => {
-              acc[err.path] = err.msg; // Use 'path' instead of 'param'
-              return acc;
-            }, {})
-          );
-        }
-      } else if (error.response) {
+      if (error.response){
+        const status = error.response.status;
         const errorMessage = error.response.data.message;
-        toast({
-          title: "Error",
-          description: errorMessage || "Registration failed",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-      } else if (error.request) {
-        toast({
-          title: "Error",
-          description: "No response from server. Please check your connection.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to send request",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
       }
+
+      if (error.response) {
+    const status = error.response.status;
+    const errorMessage = error.response.data.message;
+
+    if (status === 409) {
+      toast({
+        title: "Registration Failed",
+        description: errorMessage || "User already exists",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else if (error.response.data.errors) {
+      // Handle validation errors
+      setErrors(
+        error.response.data.errors.reduce((acc, err) => {
+          acc[err.path] = err.msg;
+          return acc;
+        }, {})
+      );
+    } else {
+      toast({
+        title: "Error",
+        description: errorMessage || "Registration failed",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } else if (error.request) {
+    toast({
+      title: "Connection Error",
+      description: "No response from server. Please check your connection.",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  } else {
+    toast({
+      title: "Error",
+      description: "Failed to send request",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
     } finally {
       setIsLoading(false);
     }
@@ -208,7 +224,7 @@ export default function SignupForm() {
                     _hover={{ borderColor: "gray.300" }}
                     _focus={{
                       borderColor: "blue.400",
-                      bg: "white",
+                      bg: boxBg,
                       boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                     }}
                     transition="all 0.2s"
@@ -248,7 +264,7 @@ export default function SignupForm() {
                     _hover={{ borderColor: "gray.300" }}
                     _focus={{
                       borderColor: "blue.400",
-                      bg: "white",
+                      bg: boxBg,
                       boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                     }}
                     transition="all 0.2s"
@@ -289,7 +305,7 @@ export default function SignupForm() {
                       _hover={{ borderColor: "gray.300" }}
                       _focus={{
                         borderColor: "blue.400",
-                        bg: "white",
+                        bg: boxBg,
                         boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                       }}
                       transition="all 0.2s"
@@ -347,7 +363,7 @@ export default function SignupForm() {
                       _hover={{ borderColor: "gray.300" }}
                       _focus={{
                         borderColor: "blue.400",
-                        bg: "white",
+                        bg: boxBg,
                         boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
                       }}
                       transition="all 0.2s"
