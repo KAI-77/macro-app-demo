@@ -64,13 +64,14 @@ export const registerUser = async (
       });
     }
     return res.status(400).json({ message: "Failed to create user" });
-
   } catch (error) {
     console.error("Registration error:", error); // Add logging
 
     // More specific error handling
     if (
-      error instanceof Error && 'code' in error && (error as any).code === 11000
+      error instanceof Error &&
+      "code" in error &&
+      (error as any).code === 11000
     ) {
       // MongoDB duplicate key error
       return res.status(409).json({ message: "User already exists" });
@@ -148,8 +149,13 @@ export const forgotPassword = async (
 
     await user.save();
 
+    const FRONTEND_URL =
+      process.env.NODE_ENV === "production"
+        ? "https://vitascan.vercel.app"
+        : "http://localhost:5173";
+
     // Create reset URL
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+    const resetUrl = `${FRONTEND_URL}/reset-password/${resetToken}`;
     const message = {
       from: process.env.EMAIL_FROM,
       to: user.email,
@@ -179,7 +185,7 @@ export const forgotPassword = async (
             © 2025 VitaScan. All rights reserved.
           </p>
         </div>
-      `
+      `,
     };
 
     await transporter.sendMail(message);
