@@ -1,6 +1,6 @@
 # 🍽️ Macro Analyzer App
 
-The Macro Analyzer App is an AI-powered web application that allows users to upload food images and receive an analysis of their macronutrient content — including **carbohydrates**, **proteins**, and **fats**. Built with modern technologies, it leverages advanced image recognition and LLM capabilities using Gemini API Flash 2.5, accessible nutrition insights.
+The Macro Analyzer App is an AI-powered web application that allows users to upload food images and receive an analysis of their macronutrient content — including **carbohydrates**, **proteins**, and **fats**. Built with modern technologies, it leverages advanced image recognition and LLM capabilities using Gemini API Flash 2.5.
 
 ---
 
